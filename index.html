@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Desligar PC - Painel</title>
+    <link rel="stylesheet" href="/src/input.css" />
+  </head>
+  <body class="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col items-center p-4 md:p-8 antialiased selection:bg-violet-500/30">
+    <!-- Header -->
+    <header class="w-full max-w-2xl flex items-center justify-between mb-8">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-violet-600 flex items-center justify-center shadow-lg shadow-violet-600/20">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"/><path d="M4.93 10a8 8 0 0 0 14.14 0"/><path d="M12 18a4 4 0 0 1-4-4V9a4 4 0 0 1 8 0v5a4 4 0 0 1-4 4Z"/></svg>
+        </div>
+        <div>
+          <h1 class="text-xl font-semibold tracking-tight">Desligar PC</h1>
+          <p class="text-sm text-zinc-400">Agende o desligamento automático</p>
+        </div>
+      </div>
+      <span id="status-badge" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium bg-zinc-900 border border-zinc-800 text-zinc-400">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        Ocioso
+      </span>
+    </header>
+
+    <main class="w-full max-w-2xl space-y-6">
+      <!-- Card Principal -->
+      <div class="bg-zinc-900 border border-zinc-800 rounded-2xl shadow-2xl overflow-hidden">
+        <!-- Countdown -->
+        <div class="bg-zinc-900 border-b border-zinc-800 p-8 text-center">
+          <p class="text-sm font-medium text-zinc-400 uppercase tracking-widest mb-3">Tempo restante</p>
+          <div id="countdown" class="font-mono text-6xl md:text-7xl font-bold tracking-tighter text-white tabular-nums">00:00:00</div>
+          <div class="mt-4 flex items-center justify-center gap-2 text-xs text-zinc-500">
+            <span id="command-preview" class="bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-1.5 font-mono">shutdown /s /t 0</span>
+          </div>
+          <!-- Progress -->
+          <div class="mt-6 h-1.5 bg-zinc-800 rounded-full overflow-hidden">
+            <div id="progress-bar" class="h-full bg-violet-600 rounded-full transition-all duration-1000" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <div class="p-6 md:p-8 space-y-6">
+          <!-- Presets -->
+          <div>
+            <label class="text-sm font-medium text-zinc-200 mb-3 block">Atalhos rápidos</label>
+            <div class="grid grid-cols-4 gap-2">
+              <button data-preset="15" class="preset-btn bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 rounded-xl py-3 font-medium text-sm transition">15 min</button>
+              <button data-preset="30" class="preset-btn bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 rounded-xl py-3 font-medium text-sm transition">30 min</button>
+              <button data-preset="60" class="preset-btn bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 rounded-xl py-3 font-medium text-sm transition">1 hora</button>
+              <button data-preset="120" class="preset-btn bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 rounded-xl py-3 font-medium text-sm transition">2 horas</button>
+            </div>
+          </div>
+
+          <!-- Inputs custom -->
+          <div>
+            <label class="text-sm font-medium text-zinc-200 mb-3 block">Tempo personalizado</label>
+            <div class="grid grid-cols-3 gap-3">
+              <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-4 text-center">
+                <label class="text-xs uppercase tracking-widest text-zinc-500 font-semibold">Horas</label>
+                <div class="flex items-center justify-center gap-2 mt-2">
+                  <button type="button" data-step="hours" data-dir="-1" class="w-8 h-8 rounded-lg bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 flex items-center justify-center">−</button>
+                  <input id="input-hours" type="number" min="0" max="99" value="0" class="w-14 text-center bg-transparent text-2xl font-bold outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" />
+                  <button type="button" data-step="hours" data-dir="1" class="w-8 h-8 rounded-lg bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 flex items-center justify-center">+</button>
+                </div>
+              </div>
+              <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-4 text-center">
+                <label class="text-xs uppercase tracking-widest text-zinc-500 font-semibold">Minutos</label>
+                <div class="flex items-center justify-center gap-2 mt-2">
+                  <button type="button" data-step="minutes" data-dir="-1" class="w-8 h-8 rounded-lg bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 flex items-center justify-center">−</button>
+                  <input id="input-minutes" type="number" min="0" max="59" value="30" class="w-14 text-center bg-transparent text-2xl font-bold outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" />
+                  <button type="button" data-step="minutes" data-dir="1" class="w-8 h-8 rounded-lg bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 flex items-center justify-center">+</button>
+                </div>
+              </div>
+              <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-4 text-center">
+                <label class="text-xs uppercase tracking-widest text-zinc-500 font-semibold">Segundos</label>
+                <div class="flex items-center justify-center gap-2 mt-2">
+                  <button type="button" data-step="seconds" data-dir="-1" class="w-8 h-8 rounded-lg bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 flex items-center justify-center">−</button>
+                  <input id="input-seconds" type="number" min="0" max="59" value="0" class="w-14 text-center bg-transparent text-2xl font-bold outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" />
+                  <button type="button" data-step="seconds" data-dir="1" class="w-8 h-8 rounded-lg bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 flex items-center justify-center">+</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ações -->
+          <div class="grid grid-cols-1 gap-3">
+            <button id="btn-schedule" class="w-full bg-violet-600 hover:bg-violet-500 active:bg-violet-700 text-white font-semibold py-4 rounded-xl shadow-lg shadow-violet-600/20 flex items-center justify-center gap-2 transition">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              Agendar desligamento
+            </button>
+            <div class="grid grid-cols-2 gap-3">
+              <button id="btn-cancel" disabled class="bg-zinc-800 border border-zinc-700 text-zinc-400 font-medium py-3 rounded-xl flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-zinc-700 hover:text-white transition">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                Cancelar
+              </button>
+              <button id="btn-now" class="bg-amber-600 hover:bg-amber-500 text-white font-medium py-3 rounded-xl flex items-center justify-center gap-2 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg>
+                Desligar agora
+              </button>
+            </div>
+          </div>
+
+          <p id="feedback" class="text-sm text-center min-h-[20px]"></p>
+        </div>
+      </div>
+
+      <!-- Card Atalho Desktop -->
+      <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 flex items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-zinc-800 border border-zinc-700 flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-zinc-300"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          </div>
+          <div>
+            <h3 class="font-medium text-sm">Atalho na Área de Trabalho</h3>
+            <p class="text-xs text-zinc-400">Cria um ícone para abrir o painel com 1 clique</p>
+          </div>
+        </div>
+        <button id="btn-shortcut" class="shrink-0 bg-white text-zinc-900 hover:bg-zinc-100 font-semibold px-5 py-2.5 rounded-xl text-sm transition flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></svg>
+          Criar ícone
+        </button>
+      </div>
+
+      <p class="text-center text-xs text-zinc-500 pb-4">Dica: O PC precisa estar com este servidor rodando. Use o atalho para iniciar rápido.</p>
+    </main>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
