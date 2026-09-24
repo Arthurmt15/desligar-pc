@@ -1,3 +1,8 @@
+/**
+ * Neon styled-components - tema cyberpunk centralizado (<300 linhas)
+ * Exporta componentes reutilizaveis: NeonCard, NeonButton, NeonBadge, etc.
+ * Todos com comentarios, cores neon #00F0FF/#FF00A8/#7000FF
+ */
 import styled, { keyframes, createGlobalStyle } from 'styled-components';
 
 const flicker = keyframes`

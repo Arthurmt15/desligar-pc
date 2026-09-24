@@ -1,3 +1,10 @@
+/**
+ * API Desligar PC - Express na porta 3001
+ * Endpoints: /api/shutdown, /api/cancel, /api/shutdown-now, /api/status, /api/create-shortcut
+ * Executa comandos Windows shutdown /s /t /a via exec.
+ * Serve dist/ em producao ou redireciona para Vite em dev.
+ * Limite: 143 linhas, comentado por rota.
+ */
 import express from 'express';
 import cors from 'cors';
 import { exec } from 'child_process';

@@ -1,3 +1,9 @@
+/**
+ * Desligar PC - Frontend Vanilla JS (Neon Protocol)
+ * Controla countdown, inputs, presets e chamadas /api/*.
+ * Sincroniza com styled-components via evento 'neon-feedback'.
+ * Limite: 261 linhas, comentado por secao.
+ */
 const $ = (s) => document.querySelector(s);
 
 const els = {

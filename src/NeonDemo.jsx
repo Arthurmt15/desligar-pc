@@ -1,8 +1,10 @@
+/**
+ * NeonDemo - island React + styled-components (<300 linhas)
+ * Demonstra uso da lib dentro do painel cyberpunk.
+ * Montado em #neon-root, sincroniza status via localStorage e evento neon-feedback.
+ */
 import React, { useEffect, useState } from 'react';
 import { NeonBadge, NeonFeedback } from './styled/neon.js';
-
-// Demo component 100% styled-components - mostra uso da lib no tema cyberpunk
-// Este componente é montado em #neon-root e sincroniza com o status real do app via localStorage/evento custom
 
 export default function NeonDemo() {
   const [scheduled, setScheduled] = useState(false);

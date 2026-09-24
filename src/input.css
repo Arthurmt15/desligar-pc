@@ -1,3 +1,5 @@
+/* Desligar PC - Estilos globais Neon Cyberpunk (<300 linhas) */
+/* Fontes: Orbitron (display), Rajdhani (texto), JetBrains/Share Tech Mono (numeros) */
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;800;900&family=Rajdhani:wght@600;700&family=JetBrains+Mono:wght@700;800&family=Share+Tech+Mono&display=swap');
 @import "tailwindcss";
 @plugin "daisyui" {
