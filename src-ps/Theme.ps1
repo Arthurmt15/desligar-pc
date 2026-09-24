@@ -1,12 +1,35 @@
 #Requires -Version 5.1
 <#
 .SYNOPSIS
-    Proxy NEON PROTOCOL - re-exporta tema centralizado
+    Tema Neon Protocol 2 - paleta centralizada
 .DESCRIPTION
-    Fonte unica: neon-protocol/desktop/Theme.ps1
-    Mantido para compatibilidade (DesligarPC.ps1 faz dot-source aqui)
-    Edite neon-protocol/desktop/Theme.ps1, nao este arquivo.
+    Cores do novo style src/neon-protocol-2 (style.css :root)
+    --bg #020711, --panel #071426, --cyan #00eaff, --blue #168cff, --purple #874cff, --pink #ff008c
+    Usado por DesligarPC.ps1 + UI.ps1. Mantido <300 linhas, comentado.
 #>
-# Importa tema centralizado (unica fonte de verdade)
-$central = Join-Path (Split-Path $PSScriptRoot -Parent) "neon-protocol\desktop\Theme.ps1"
-if (Test-Path $central) { . $central } else { Write-Warning "NEON PROTOCOL Theme.ps1 nao encontrado em $central" }
+# Fundo - neon-protocol-2
+$bgMain    = [Drawing.Color]::FromArgb(2,7,17)      # #020711
+$bgHeader  = [Drawing.Color]::FromArgb(7,20,38)     # #071426
+$bgCard    = [Drawing.Color]::FromArgb(7,20,38)
+$bgCardAlt = [Drawing.Color]::FromArgb(6,19,38)     # #061326
+$bgInput   = [Drawing.Color]::FromArgb(11,27,52)    # #0b1b34
+$border      = [Drawing.Color]::FromArgb(0,234,255) # #00eaff cyan
+$borderDim   = [Drawing.Color]::FromArgb(0,140,255) # #008cff blue
+$borderLight = [Drawing.Color]::FromArgb(22,140,255)
+$textMain  = [Drawing.Color]::FromArgb(245,248,255) # #f5f8ff
+$textMuted = [Drawing.Color]::FromArgb(114,168,221) # #72a8dd
+$textFaint = [Drawing.Color]::FromArgb(90,130,170)
+$violet      = [Drawing.Color]::FromArgb(0,234,255) # cyan
+$violetHover = [Drawing.Color]::FromArgb(0,210,240)
+$violetDeep  = [Drawing.Color]::FromArgb(0,180,210)
+$indigo      = [Drawing.Color]::FromArgb(135,76,255) # purple #874cff
+$pink        = [Drawing.Color]::FromArgb(255,0,140) # pink #ff008c
+$pinkHover   = [Drawing.Color]::FromArgb(230,0,120)
+$red       = [Drawing.Color]::FromArgb(255,0,106)  # #ff006a
+$redBg     = [Drawing.Color]::FromArgb(50,0,25)
+$redBorder = [Drawing.Color]::FromArgb(255,0,106)
+$amber       = [Drawing.Color]::FromArgb(255,217,0)
+$amberHover  = [Drawing.Color]::FromArgb(255,230,40)
+$emerald     = [Drawing.Color]::FromArgb(0,234,255)
+$cyanGlow    = [Drawing.Color]::FromArgb(0,234,255)
+$blue        = [Drawing.Color]::FromArgb(22,140,255)

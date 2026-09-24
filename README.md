@@ -1,13 +1,7 @@
-# DESLIGAR PC // NEON PROTOCOL v2.4.1
+# DESLIGAR PC // NEON PROTOCOL v2
 
-> **Design System centralizado em `neon-protocol/`** — style cyberpunk com `styled-components` + WinForms neon.
-> App nativo PowerShell + web Vite/Tailwind, ambos consomem `neon-protocol/tokens.json`.
-
-## Style Central
-- `neon-protocol/tokens.json` — única fonte de verdade (cores `#02020a/#00F0FF/#FF00A8`)
-- `neon-protocol/web/tokens.css` + `components.js` — styled-components web
-- `neon-protocol/desktop/Theme.ps1` — paleta WinForms (re-exportado por `src-ps/Theme.ps1`)
-- Veja `neon-protocol/README.md` para guia completo.
+> **Novo style 100% de `src/neon-protocol-2/`** — vanilla CSS (`:root --bg #020711, --cyan #00eaff, --blue #168cff, --purple #874cff, --pink #ff008c`)
+> Todo o frontend foi substituído, apenas `server/server.js` endpoints mantidos. Style migrado para `index.html` + `src/input.css` + `src/main.js`.
 
 > **Agora SEM precisar rodar `npm start` ou Node!** App nativo leve em PowerShell.
 
@@ -40,22 +34,18 @@ npm start
 - **Desligar agora** → `shutdown /s /t 0 /f`
 - **Criar ícone na Área de Trabalho** → botão dentro do app
 
-## Arquivos
+## Arquivos (após substituição total)
 ```
 desligar/
-├── DesligarPC.ps1          # ★ Entry point (26 linhas, dot-source src-ps/*)
-├── src-ps/Theme.ps1        # Proxy -> neon-protocol/desktop/Theme.ps1
-├── src-ps/UI.ps1           # UI WinForms neon (290 linhas)
-├── src-ps/Logic.ps1        # Lógica + Format-Time fix
-├── neon-protocol/          # ★ DESIGN SYSTEM centralizado
-│   ├── tokens.json         # cores/fontes
-│   ├── web/tokens.css + components.js
-│   └── desktop/Theme.ps1
-├── DesligarPC.bat          # Launcher NEON PROTOCOL
-├── src/ + index.html       # Frontend web neon (var --neon-*)
-├── src/styled/neon.js      # Proxy -> neon-protocol/web/components.js
-├── server/server.js        # Backend Express com logs neon
-└── package.json            # styled-components + react
+├── DesligarPC.ps1          # Entry point (26 linhas, dot-source src-ps/*)
+├── src-ps/Theme.ps1        # Tema #020711/#00eaff (neon-protocol-2)
+├── src-ps/UI.ps1           # UI WinForms 290 linhas (neon)
+├── src-ps/Logic.ps1        # Lógica + persistência cronômetro
+├── index.html              # ★ Novo style neon-protocol-2 (topbar, app 1000px)
+├── src/input.css           # ★ style.css neon-protocol-2 (:root --bg etc.)
+├── src/main.js             # ★ script.js neon-protocol-2 + fetch /api/* (endpoints)
+├── server/server.js        # ★★ Apenas endpoints mantidos (/shutdown, /cancel, /status, /create-shortcut)
+└── package.json            # vite + express (sem react)
 ```
 
 ## Criar atalho manualmente

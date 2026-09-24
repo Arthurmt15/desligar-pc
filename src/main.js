@@ -1,6 +1,6 @@
 /**
  * Desligar PC - Neon Protocol 2 (vanilla JS + API)
- * Style: neon-protocol-2/style.css migrado para src/input.css
+ * Style: 100% neon-protocol-2 migrado para index.html + src/input.css (pasta excluida)
  * Integra backend Express (/api/shutdown, /cancel, /shutdown-now)
  * <300 linhas, comentado
  */

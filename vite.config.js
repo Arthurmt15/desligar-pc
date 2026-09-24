@@ -1,12 +1,8 @@
-// Vite config - neon cyberpunk + React/styled-components
-// Tailwind via @tailwindcss/vite, React via @vitejs/plugin-react
-// Proxy /api -> localhost:3001 (Express)
+// Vite config - Neon Protocol 2 (vanilla)
+// Proxy /api -> localhost:3001 (Express) - apenas endpoints mantidos
 import { defineConfig } from 'vite'
-import tailwindcss from '@tailwindcss/vite'
-import react from '@vitejs/plugin-react'
 
 export default defineConfig({
-  plugins: [tailwindcss(), react()],
   server: {
     port: 5173,
     proxy: {
