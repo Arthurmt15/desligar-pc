@@ -232,7 +232,7 @@ $numMins.Value = 30 # preset inicial 30 min
 
 # --- Botoes de acao ---
 $btnSchedule = New-Object Windows.Forms.Button
-$btnSchedule.Text = "AGENDAR DESLIGAMENTO  ▶"
+$btnSchedule.Text = "AGENDAR DESLIGAMENTO >"
 $btnSchedule.Location = New-Object Drawing.Point(20, 472)
 $btnSchedule.Size = New-Object Drawing.Size(420, 48)
 $btnSchedule.FlatStyle = "Flat"
@@ -258,7 +258,7 @@ $btnCancel.Cursor = "Hand"
 $Form.Controls.Add($btnCancel)
 
 $btnNow = New-Object Windows.Forms.Button
-$btnNow.Text = "AGORA ◆"
+$btnNow.Text = "AGORA"
 $btnNow.Location = New-Object Drawing.Point(236, 530)
 $btnNow.Size = New-Object Drawing.Size(204, 40)
 $btnNow.FlatStyle = "Flat"
