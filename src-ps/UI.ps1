@@ -1,17 +1,9 @@
 #Requires -Version 5.1
-<#
-.SYNOPSIS
-    UI CYBERPUNK - construcao dos controles WinForms
-.DESCRIPTION
-    Cria Form, header, card de countdown, presets, inputs custom e botoes.
-    Depende de Theme.ps1 (cores) ja carregado via dot-source.
-    Cada secao tem comentarios de contexto para manter <300 linhas.
-#>
+# UI Neon Protocol 2 - WinForms (depende de Theme.ps1)
 
-# --- Form principal ---
-# Janela fixa 460x720 centralizada, sem maximizar, icone Shield
+# Form 460x720
 $Form = New-Object Windows.Forms.Form
-$Form.Text = "DESLIGAR PC // NEON PROTOCOL"
+$Form.Text = "DESLIGAR PC // NEON PROTOCOL v2"
 $Form.Size = New-Object Drawing.Size(460, 720)
 $Form.StartPosition = "CenterScreen"
 $Form.BackColor = $bgMain
@@ -21,50 +13,31 @@ $Form.MaximizeBox = $false
 $Form.Font = New-Object Drawing.Font("Consolas", 9)
 $Form.Icon = [Drawing.SystemIcons]::Shield
 
-# Linhas laser topo - efeito duplo cyan + pink
-$topLine = New-Object Windows.Forms.Panel
-$topLine.Location = New-Object Drawing.Point(0,0)
-$topLine.Size = New-Object Drawing.Size(460, 2)
-$topLine.BackColor = $violet
-$Form.Controls.Add($topLine)
-$topLine2 = New-Object Windows.Forms.Panel
-$topLine2.Location = New-Object Drawing.Point(0,2)
-$topLine2.Size = New-Object Drawing.Size(460, 1)
-$topLine2.BackColor = $pink
-$Form.Controls.Add($topLine2)
-
-# --- Header neon ---
+# Header 72px + laser cyan/pink + logo + badge
 $headerPanel = New-Object Windows.Forms.Panel
 $headerPanel.Location = New-Object Drawing.Point(0,3)
 $headerPanel.Size = New-Object Drawing.Size(460, 72)
 $headerPanel.BackColor = $bgHeader
 $Form.Controls.Add($headerPanel)
-
-# linha neon fina embaixo do header
 $headerLine = New-Object Windows.Forms.Panel
 $headerLine.Location = New-Object Drawing.Point(0,71)
 $headerLine.Size = New-Object Drawing.Size(460,1)
 $headerLine.BackColor = [Drawing.Color]::FromArgb(40,240,255)
 $headerPanel.Controls.Add($headerLine)
-
-# Logo quadrado preto com borda cyan
 $logoPanel = New-Object Windows.Forms.Panel
 $logoPanel.Location = New-Object Drawing.Point(20, 14)
 $logoPanel.Size = New-Object Drawing.Size(44, 44)
 $logoPanel.BackColor = [Drawing.Color]::Black
 $logoPanel.BorderStyle = "FixedSingle"
 $headerPanel.Controls.Add($logoPanel)
-
 $lblLogo = New-Object Windows.Forms.Label
-$lblLogo.Text = "O" # simbolo power simplificado
+$lblLogo.Text = "O"
 $lblLogo.Font = New-Object Drawing.Font("Consolas", 16, [Drawing.FontStyle]::Bold)
 $lblLogo.ForeColor = $violet
 $lblLogo.Location = New-Object Drawing.Point(0,0)
 $lblLogo.Size = New-Object Drawing.Size(44,44)
 $lblLogo.TextAlign = "MiddleCenter"
 $logoPanel.Controls.Add($lblLogo)
-
-# Titulo e subtitulo neon
 $lblTitle = New-Object Windows.Forms.Label
 $lblTitle.Text = "DESLIGAR PC //"
 $lblTitle.Font = New-Object Drawing.Font("Consolas", 10, [Drawing.FontStyle]::Bold)
@@ -72,16 +45,13 @@ $lblTitle.ForeColor = [Drawing.Color]::White
 $lblTitle.Location = New-Object Drawing.Point(74, 16)
 $lblTitle.AutoSize = $true
 $headerPanel.Controls.Add($lblTitle)
-
 $lblSub = New-Object Windows.Forms.Label
-$lblSub.Text = "NEON PROTOCOL v2.4.1  ONLINE"
+$lblSub.Text = "NEON PROTOCOL v2  ONLINE"
 $lblSub.ForeColor = $violet
 $lblSub.Font = New-Object Drawing.Font("Consolas", 7, [Drawing.FontStyle]::Bold)
 $lblSub.Location = New-Object Drawing.Point(74, 38)
 $lblSub.AutoSize = $true
 $headerPanel.Controls.Add($lblSub)
-
-# Badge status - OCIOSO/AGENDADO (atualizado via Set-Badge)
 $badge = New-Object Windows.Forms.Label
 $badge.Text = " OCIOSO"
 $badge.BackColor = [Drawing.Color]::Black
@@ -92,6 +62,17 @@ $badge.Size = New-Object Drawing.Size(96, 26)
 $badge.TextAlign = "MiddleCenter"
 $badge.BorderStyle = "FixedSingle"
 $headerPanel.Controls.Add($badge)
+# Laser topo
+$topLine = New-Object Windows.Forms.Panel
+$topLine.Location = New-Object Drawing.Point(0,0)
+$topLine.Size = New-Object Drawing.Size(460, 2)
+$topLine.BackColor = $violet
+$Form.Controls.Add($topLine)
+$topLine2 = New-Object Windows.Forms.Panel
+$topLine2.Location = New-Object Drawing.Point(0,2)
+$topLine2.Size = New-Object Drawing.Size(460, 1)
+$topLine2.BackColor = $pink
+$Form.Controls.Add($topLine2)
 
 # --- Card countdown ---
 $cardTop = New-Object Windows.Forms.Panel
