@@ -1,165 +1,169 @@
 #Requires -Version 5.1
-# UI Neon Protocol v2 Style - WinForms gira Theme.ps1 (neon_protocol_v2_style)
-# Container 480px, Orbitron/Rajdhani, --bg-dark #070a12 --cyan #00f3ff --magenta #ff0055
+# UI Neon Protocol 2 - WinForms (depende de Theme.ps1)
 
+# Form 460x720
 $Form = New-Object Windows.Forms.Form
-$Form.Text = "DESLIGAR PC // NEON PROTOCOL v2.0"
-$Form.Size = New-Object Drawing.Size(520, 860)
+$Form.Text = "DESLIGAR PC // NEON PROTOCOL v2"
+$Form.Size = New-Object Drawing.Size(460, 720)
 $Form.StartPosition = "CenterScreen"
 $Form.BackColor = $bgMain
 $Form.ForeColor = $textMain
 $Form.FormBorderStyle = "FixedDialog"
 $Form.MaximizeBox = $false
 $Form.Font = New-Object Drawing.Font("Consolas", 9)
+$Form.Icon = [Drawing.SystemIcons]::Shield
 
-# Scanline overlay simulado (barra fina topo)
-$topGlow = New-Object Windows.Forms.Panel
-$topGlow.Location = New-Object Drawing.Point(20, 20)
-$topGlow.Size = New-Object Drawing.Size(480, 2)
-$topGlow.BackColor = $border
-$Form.Controls.Add($topGlow)
-
-# Container principal 480px
-$container = New-Object Windows.Forms.Panel
-$container.Location = New-Object Drawing.Point(20, 22)
-$container.Size = New-Object Drawing.Size(480, 780)
-$container.BackColor = $bgHeader
-$container.BorderStyle = "FixedSingle"
-$Form.Controls.Add($container)
-
-# Header
+# Header 72px + laser cyan/pink + logo + badge
 $headerPanel = New-Object Windows.Forms.Panel
-$headerPanel.Location = New-Object Drawing.Point(0, 0)
-$headerPanel.Size = New-Object Drawing.Size(480, 70)
-$headerPanel.BackColor = [Drawing.Color]::FromArgb(13,19,33)
-$container.Controls.Add($headerPanel)
-
-$iconBadge = New-Object Windows.Forms.Panel
-$iconBadge.Location = New-Object Drawing.Point(16, 14)
-$iconBadge.Size = New-Object Drawing.Size(42, 42)
-$iconBadge.BackColor = [Drawing.Color]::FromArgb(0,243,255)
-$iconBadge.BackColor = [Drawing.Color]::FromArgb(20,40,50)
-$iconBadge.BorderStyle = "FixedSingle"
-$headerPanel.Controls.Add($iconBadge)
-$lblIcon = New-Object Windows.Forms.Label
-$lblIcon.Text = "⏻"
-$lblIcon.Font = New-Object Drawing.Font("Consolas", 16, [Drawing.FontStyle]::Bold)
-$lblIcon.ForeColor = $border
-$lblIcon.Location = New-Object Drawing.Point(0,0)
-$lblIcon.Size = New-Object Drawing.Size(42,42)
-$lblIcon.TextAlign = "MiddleCenter"
-$iconBadge.Controls.Add($lblIcon)
-
+$headerPanel.Location = New-Object Drawing.Point(0,3)
+$headerPanel.Size = New-Object Drawing.Size(460, 72)
+$headerPanel.BackColor = $bgHeader
+$Form.Controls.Add($headerPanel)
+$headerLine = New-Object Windows.Forms.Panel
+$headerLine.Location = New-Object Drawing.Point(0,71)
+$headerLine.Size = New-Object Drawing.Size(460,1)
+$headerLine.BackColor = [Drawing.Color]::FromArgb(40,240,255)
+$headerPanel.Controls.Add($headerLine)
+$logoPanel = New-Object Windows.Forms.Panel
+$logoPanel.Location = New-Object Drawing.Point(20, 14)
+$logoPanel.Size = New-Object Drawing.Size(44, 44)
+$logoPanel.BackColor = [Drawing.Color]::Black
+$logoPanel.BorderStyle = "FixedSingle"
+$headerPanel.Controls.Add($logoPanel)
+$lblLogo = New-Object Windows.Forms.Label
+$lblLogo.Text = "O"
+$lblLogo.Font = New-Object Drawing.Font("Consolas", 16, [Drawing.FontStyle]::Bold)
+$lblLogo.ForeColor = $violet
+$lblLogo.Location = New-Object Drawing.Point(0,0)
+$lblLogo.Size = New-Object Drawing.Size(44,44)
+$lblLogo.TextAlign = "MiddleCenter"
+$logoPanel.Controls.Add($lblLogo)
 $lblTitle = New-Object Windows.Forms.Label
-$lblTitle.Text = "DESLIGAR PC"
+$lblTitle.Text = "DESLIGAR PC //"
 $lblTitle.Font = New-Object Drawing.Font("Consolas", 10, [Drawing.FontStyle]::Bold)
 $lblTitle.ForeColor = [Drawing.Color]::White
-$lblTitle.Location = New-Object Drawing.Point(70, 14)
+$lblTitle.Location = New-Object Drawing.Point(74, 16)
 $lblTitle.AutoSize = $true
 $headerPanel.Controls.Add($lblTitle)
 $lblSub = New-Object Windows.Forms.Label
-$lblSub.Text = "NEON PROTOCOL v2.0"
+$lblSub.Text = "NEON PROTOCOL v2  ONLINE"
+$lblSub.ForeColor = $violet
 $lblSub.Font = New-Object Drawing.Font("Consolas", 7, [Drawing.FontStyle]::Bold)
-$lblSub.ForeColor = $border
-$lblSub.Location = New-Object Drawing.Point(70, 36)
+$lblSub.Location = New-Object Drawing.Point(74, 38)
 $lblSub.AutoSize = $true
 $headerPanel.Controls.Add($lblSub)
-
 $badge = New-Object Windows.Forms.Label
 $badge.Text = " OCIOSO"
-$badge.BackColor = [Drawing.Color]::FromArgb(255,255,255,12)
-$badge.ForeColor = $textMuted
-$badge.Font = New-Object Drawing.Font("Consolas", 7, [Drawing.FontStyle]::Bold)
-$badge.Location = New-Object Drawing.Point(360, 20)
-$badge.Size = New-Object Drawing.Size(100, 24)
+$badge.BackColor = [Drawing.Color]::Black
+$badge.ForeColor = $violet
+$badge.Font = New-Object Drawing.Font("Consolas", 8, [Drawing.FontStyle]::Bold)
+$badge.Location = New-Object Drawing.Point(340, 22)
+$badge.Size = New-Object Drawing.Size(96, 26)
 $badge.TextAlign = "MiddleCenter"
 $badge.BorderStyle = "FixedSingle"
 $headerPanel.Controls.Add($badge)
-# Alias para novo style statusPill
-$statusPill = $badge
-$statusText = $badge
+# Laser topo
+$topLine = New-Object Windows.Forms.Panel
+$topLine.Location = New-Object Drawing.Point(0,0)
+$topLine.Size = New-Object Drawing.Size(460, 2)
+$topLine.BackColor = $violet
+$Form.Controls.Add($topLine)
+$topLine2 = New-Object Windows.Forms.Panel
+$topLine2.Location = New-Object Drawing.Point(0,2)
+$topLine2.Size = New-Object Drawing.Size(460, 1)
+$topLine2.BackColor = $pink
+$Form.Controls.Add($topLine2)
 
-# Header bottom border
-$headerLine = New-Object Windows.Forms.Panel
-$headerLine.Location = New-Object Drawing.Point(0, 69)
-$headerLine.Size = New-Object Drawing.Size(480, 1)
-$headerLine.BackColor = [Drawing.Color]::FromArgb(30,60,80)
-$container.Controls.Add($headerLine)
+# --- Card countdown ---
+$cardTop = New-Object Windows.Forms.Panel
+$cardTop.Location = New-Object Drawing.Point(16, 88)
+$cardTop.Size = New-Object Drawing.Size(420, 176)
+$cardTop.BackColor = $borderDim # borda externa
+$Form.Controls.Add($cardTop)
 
-# Timer display box 440x150
-$timerBox = New-Object Windows.Forms.Panel
-$timerBox.Location = New-Object Drawing.Point(20, 84)
-$timerBox.Size = New-Object Drawing.Size(440, 160)
-$timerBox.BackColor = [Drawing.Color]::FromArgb(5,8,15)
-$timerBox.BorderStyle = "FixedSingle"
-$container.Controls.Add($timerBox)
+$cardInner = New-Object Windows.Forms.Panel
+$cardInner.Location = New-Object Drawing.Point(1,1)
+$cardInner.Size = New-Object Drawing.Size(418,174)
+$cardInner.BackColor = $bgCard
+$cardTop.Controls.Add($cardInner)
 
-$displayLabel = New-Object Windows.Forms.Label
-$displayLabel.Text = "T-MINUS // TEMPO RESTANTE"
-$displayLabel.ForeColor = $textMuted
-$displayLabel.Font = New-Object Drawing.Font("Consolas", 7, [Drawing.FontStyle]::Bold)
-$displayLabel.Location = New-Object Drawing.Point(0, 14)
-$displayLabel.Size = New-Object Drawing.Size(440, 14)
-$displayLabel.TextAlign = "MiddleCenter"
-$timerBox.Controls.Add($displayLabel)
+$lblCountdownTitle = New-Object Windows.Forms.Label
+$lblCountdownTitle.Text = "T-MINUS // TEMPO RESTANTE"
+$lblCountdownTitle.ForeColor = $violet
+$lblCountdownTitle.Font = New-Object Drawing.Font("Consolas", 7, [Drawing.FontStyle]::Bold)
+$lblCountdownTitle.Location = New-Object Drawing.Point(0, 14)
+$lblCountdownTitle.Size = New-Object Drawing.Size(418, 14)
+$lblCountdownTitle.TextAlign = "MiddleCenter"
+$cardInner.Controls.Add($lblCountdownTitle)
 
+# Display principal HH:MM:SS
 $lblCountdown = New-Object Windows.Forms.Label
 $lblCountdown.Text = "00:00:00"
-$lblCountdown.Font = New-Object Drawing.Font("Consolas", 30, [Drawing.FontStyle]::Bold)
+$lblCountdown.Font = New-Object Drawing.Font("Consolas", 36, [Drawing.FontStyle]::Bold)
 $lblCountdown.ForeColor = [Drawing.Color]::White
-$lblCountdown.Location = New-Object Drawing.Point(0, 36)
-$lblCountdown.Size = New-Object Drawing.Size(440, 50)
+$lblCountdown.Location = New-Object Drawing.Point(0, 34)
+$lblCountdown.Size = New-Object Drawing.Size(418, 66)
 $lblCountdown.TextAlign = "MiddleCenter"
-$timerBox.Controls.Add($lblCountdown)
-# Alias timerDisplay/cmdPreview para compatibilidade novo style
-$timerDisplay = $lblCountdown
+$cardInner.Controls.Add($lblCountdown)
 
+# Preview do comando shutdown
 $lblCmd = New-Object Windows.Forms.Label
-$lblCmd.Text = "shutdown /s /t 0 /f"
+$lblCmd.Text = '> shutdown /s /t 0 /f  [EXEC]'
 $lblCmd.Font = New-Object Drawing.Font("Consolas", 7, [Drawing.FontStyle]::Bold)
-$lblCmd.ForeColor = $border
-$lblCmd.BackColor = [Drawing.Color]::FromArgb(0,0,0,120)
-$lblCmd.Location = New-Object Drawing.Point(70, 94)
-$lblCmd.Size = New-Object Drawing.Size(300, 18)
+$lblCmd.ForeColor = $violet
+$lblCmd.BackColor = [Drawing.Color]::Black
+$lblCmd.Location = New-Object Drawing.Point(64, 108)
+$lblCmd.Size = New-Object Drawing.Size(290, 18)
 $lblCmd.TextAlign = "MiddleCenter"
 $lblCmd.BorderStyle = "FixedSingle"
-$timerBox.Controls.Add($lblCmd)
-$cmdPreview = $lblCmd
+$cardInner.Controls.Add($lblCmd)
 
+# Barra de progresso neon
 $progressBg = New-Object Windows.Forms.Panel
-$progressBg.Location = New-Object Drawing.Point(20, 130)
-$progressBg.Size = New-Object Drawing.Size(400, 6)
-$progressBg.BackColor = [Drawing.Color]::FromArgb(40,40,50)
-$timerBox.Controls.Add($progressBg)
+$progressBg.Location = New-Object Drawing.Point(18, 142)
+$progressBg.Size = New-Object Drawing.Size(382, 10)
+$progressBg.BackColor = [Drawing.Color]::Black
+$progressBg.BorderStyle = "FixedSingle"
+$cardInner.Controls.Add($progressBg)
+
 $progress = New-Object Windows.Forms.Panel
 $progress.Location = New-Object Drawing.Point(0,0)
-$progress.Size = New-Object Drawing.Size(0,6)
-$progress.BackColor = $border
+$progress.Size = New-Object Drawing.Size(0,10)
+$progress.BackColor = $violet
 $progressBg.Controls.Add($progress)
-$progressBar = $progress
 
-# Section Atalhos Rapidos
+$lblProgressHint = New-Object Windows.Forms.Label
+$lblProgressHint.Text = "PROGRESS  0%  --------------------  100% // SHUTDOWN_IMMINENT"
+$lblProgressHint.ForeColor = [Drawing.Color]::FromArgb(40,100,110)
+$lblProgressHint.Font = New-Object Drawing.Font("Consolas", 6)
+$lblProgressHint.Location = New-Object Drawing.Point(18, 156)
+$lblProgressHint.Size = New-Object Drawing.Size(382, 10)
+$lblProgressHint.TextAlign = "MiddleCenter"
+$cardInner.Controls.Add($lblProgressHint)
+
+# --- Presets rapidos ---
 $lblPresets = New-Object Windows.Forms.Label
-$lblPresets.Text = " ATALHOS RÁPIDOS"
+$lblPresets.Text = "ATALHOS RAPIDOS  // QUICK_SELECT"
 $lblPresets.Font = New-Object Drawing.Font("Consolas", 8, [Drawing.FontStyle]::Bold)
-$lblPresets.ForeColor = $border
-$lblPresets.Location = New-Object Drawing.Point(20, 260)
-$lblPresets.Size = New-Object Drawing.Size(440, 14)
-$container.Controls.Add($lblPresets)
+$lblPresets.ForeColor = $violet
+$lblPresets.Location = New-Object Drawing.Point(20, 278)
+$lblPresets.AutoSize = $true
+$Form.Controls.Add($lblPresets)
 
 $presetVals = @(15,30,60,120)
 $presetTexts = @("15 MIN","30 MIN","01 HORA","02 HORAS")
+$presetBorders = @($violet,$violet,$pink,$indigo)
 for ($i=0; $i -lt 4; $i++) {
     $btn = New-Object Windows.Forms.Button
     $btn.Text = $presetTexts[$i]
     $btn.Tag = $presetVals[$i]
-    $btn.Location = New-Object Drawing.Point((20 + $i*110), 280)
-    $btn.Size = New-Object Drawing.Size(102, 38)
+    $btn.Location = New-Object Drawing.Point((20 + $i*106), 298)
+    $btn.Size = New-Object Drawing.Size(98, 36)
     $btn.FlatStyle = "Flat"
-    $btn.BackColor = [Drawing.Color]::FromArgb(30,30,35)
-    $btn.ForeColor = [Drawing.Color]::WhiteSmoke
+    $btn.BackColor = [Drawing.Color]::Black
+    $btn.ForeColor = [Drawing.Color]::White
     $btn.Font = New-Object Drawing.Font("Consolas", 8, [Drawing.FontStyle]::Bold)
-    $btn.FlatAppearance.BorderColor = [Drawing.Color]::FromArgb(60,60,65)
+    $btn.FlatAppearance.BorderColor = $presetBorders[$i]
     $btn.FlatAppearance.BorderSize = 1
     $btn.Cursor = "Hand"
     $btn.Add_Click({
@@ -169,39 +173,42 @@ for ($i=0; $i -lt 4; $i++) {
         $numSecs.Value = 0
         Update-CmdPreview
     })
-    $btn.Add_MouseEnter({ $this.BackColor = [Drawing.Color]::FromArgb(0,40,50); $this.FlatAppearance.BorderColor = $border })
-    $btn.Add_MouseLeave({ $this.BackColor = [Drawing.Color]::FromArgb(30,30,35); $this.FlatAppearance.BorderColor = [Drawing.Color]::FromArgb(60,60,65) })
-    $container.Controls.Add($btn)
+    $btn.Add_MouseEnter({ $this.BackColor = [Drawing.Color]::FromArgb(10,20,30) })
+    $btn.Add_MouseLeave({ $this.BackColor = [Drawing.Color]::Black })
+    $Form.Controls.Add($btn)
 }
 
-# Tempo Personalizado
+# --- Tempo personalizado ---
 $lblCustom = New-Object Windows.Forms.Label
-$lblCustom.Text = " TEMPO PERSONALIZADO"
+$lblCustom.Text = "TEMPO PERSONALIZADO  // CUSTOM_INPUT"
 $lblCustom.Font = New-Object Drawing.Font("Consolas", 8, [Drawing.FontStyle]::Bold)
-$lblCustom.ForeColor = $border
-$lblCustom.Location = New-Object Drawing.Point(20, 334)
-$lblCustom.Size = New-Object Drawing.Size(440, 14)
-$container.Controls.Add($lblCustom)
+$lblCustom.ForeColor = $pink
+$lblCustom.Location = New-Object Drawing.Point(20, 348)
+$lblCustom.AutoSize = $true
+$Form.Controls.Add($lblCustom)
 
-function New-TimeGroup($x, $label, $max) {
+# Helper: cria grupo Horas/Minutos/Segundos com NumericUpDown
+function New-TimeGroup($x, $label, $max, $isAccent) {
     $p = New-Object Windows.Forms.Panel
-    $p.Location = New-Object Drawing.Point($x, 354)
-    $p.Size = New-Object Drawing.Size(138, 90)
-    $p.BackColor = [Drawing.Color]::FromArgb(0,0,0,80)
+    $p.Location = New-Object Drawing.Point($x, 370)
+    $p.Size = New-Object Drawing.Size(130, 86)
+    $p.BackColor = [Drawing.Color]::Black
     $p.BorderStyle = "FixedSingle"
+    if ($isAccent) { $p.BackColor = [Drawing.Color]::FromArgb(5,10,20) } # destaque para minutos
     $lbl = New-Object Windows.Forms.Label
     $lbl.Text = $label
     $lbl.Font = New-Object Drawing.Font("Consolas", 7, [Drawing.FontStyle]::Bold)
-    $lbl.ForeColor = $textMuted
+    if ($isAccent) { $lbl.ForeColor = $violet } else { $lbl.ForeColor = $textFaint }
     $lbl.Location = New-Object Drawing.Point(0,10)
-    $lbl.Size = New-Object Drawing.Size(138,14)
+    $lbl.Size = New-Object Drawing.Size(130,14)
     $lbl.TextAlign = "MiddleCenter"
     $p.Controls.Add($lbl)
     $num = New-Object Windows.Forms.NumericUpDown
-    $num.Location = New-Object Drawing.Point(30, 34)
+    $num.Location = New-Object Drawing.Point(26, 32)
     $num.Size = New-Object Drawing.Size(78, 30)
-    $num.Font = New-Object Drawing.Font("Consolas", 14, [Drawing.FontStyle]::Bold)
+    $num.Font = New-Object Drawing.Font("Consolas", 15, [Drawing.FontStyle]::Bold)
     $num.BackColor = [Drawing.Color]::Black
+    if ($isAccent) { $num.BackColor = [Drawing.Color]::FromArgb(5,10,20) }
     $num.ForeColor = [Drawing.Color]::White
     $num.BorderStyle = "None"
     $num.TextAlign = "Center"
@@ -209,85 +216,84 @@ function New-TimeGroup($x, $label, $max) {
     $num.Maximum = $max
     $num.Value = 0
     $p.Controls.Add($num)
-    # spin buttons overlay (usados pelo Logic via ValueChanged, mas adicionamos click areas)
     return @{ Panel=$p; Num=$num }
 }
-$gH = New-TimeGroup 20 "HORAS" 24
-$gM = New-TimeGroup 171 "MINUTOS" 59
-$gS = New-TimeGroup 322 "SEGUNDOS" 59
-$container.Controls.Add($gH.Panel)
-$container.Controls.Add($gM.Panel)
-$container.Controls.Add($gS.Panel)
+
+$gH = New-TimeGroup 20 "HORAS" 99 $false
+$gM = New-TimeGroup 165 "MINUTOS" 59 $true
+$gS = New-TimeGroup 310 "SEGUNDOS" 59 $false
+$Form.Controls.Add($gH.Panel)
+$Form.Controls.Add($gM.Panel)
+$Form.Controls.Add($gS.Panel)
 $numHours = $gH.Num
 $numMins  = $gM.Num
 $numSecs  = $gS.Num
-$numMins.Value = 30
+$numMins.Value = 30 # preset inicial 30 min
 
-# Botoes acao
+# --- Botoes de acao ---
 $btnSchedule = New-Object Windows.Forms.Button
-$btnSchedule.Text = " AGENDAR DESLIGAMENTO"
-$btnSchedule.Location = New-Object Drawing.Point(20, 466)
-$btnSchedule.Size = New-Object Drawing.Size(440, 50)
+$btnSchedule.Text = "AGENDAR DESLIGAMENTO  ▶"
+$btnSchedule.Location = New-Object Drawing.Point(20, 472)
+$btnSchedule.Size = New-Object Drawing.Size(420, 48)
 $btnSchedule.FlatStyle = "Flat"
-$btnSchedule.BackColor = $border
-$btnSchedule.ForeColor = $bgMain
+$btnSchedule.BackColor = $violet
+$btnSchedule.ForeColor = [Drawing.Color]::Black
 $btnSchedule.Font = New-Object Drawing.Font("Consolas", 10, [Drawing.FontStyle]::Bold)
-$btnSchedule.FlatAppearance.BorderSize = 0
+$btnSchedule.FlatAppearance.BorderSize = 1
+$btnSchedule.FlatAppearance.BorderColor = [Drawing.Color]::White
 $btnSchedule.Cursor = "Hand"
-$container.Controls.Add($btnSchedule)
+$Form.Controls.Add($btnSchedule)
 
 $btnCancel = New-Object Windows.Forms.Button
 $btnCancel.Text = "CANCELAR"
-$btnCancel.Location = New-Object Drawing.Point(20, 528)
-$btnCancel.Size = New-Object Drawing.Size(212, 44)
+$btnCancel.Location = New-Object Drawing.Point(20, 530)
+$btnCancel.Size = New-Object Drawing.Size(204, 40)
 $btnCancel.FlatStyle = "Flat"
-$btnCancel.BackColor = [Drawing.Color]::FromArgb(40,10,20)
-$btnCancel.ForeColor = $pink
+$btnCancel.BackColor = [Drawing.Color]::Black
+$btnCancel.ForeColor = $red
 $btnCancel.Font = New-Object Drawing.Font("Consolas", 9, [Drawing.FontStyle]::Bold)
-$btnCancel.FlatAppearance.BorderColor = $pink
+$btnCancel.FlatAppearance.BorderColor = $red
 $btnCancel.FlatAppearance.BorderSize = 1
 $btnCancel.Cursor = "Hand"
-$container.Controls.Add($btnCancel)
+$Form.Controls.Add($btnCancel)
 
 $btnNow = New-Object Windows.Forms.Button
-$btnNow.Text = "AGORA"
-$btnNow.Location = New-Object Drawing.Point(248, 528)
-$btnNow.Size = New-Object Drawing.Size(212, 44)
+$btnNow.Text = "AGORA ◆"
+$btnNow.Location = New-Object Drawing.Point(236, 530)
+$btnNow.Size = New-Object Drawing.Size(204, 40)
 $btnNow.FlatStyle = "Flat"
-$btnNow.BackColor = [Drawing.Color]::FromArgb(40,35,0)
-$btnNow.ForeColor = $amber
+$btnNow.BackColor = $amber
+$btnNow.ForeColor = [Drawing.Color]::Black
 $btnNow.Font = New-Object Drawing.Font("Consolas", 9, [Drawing.FontStyle]::Bold)
-$btnNow.FlatAppearance.BorderColor = $amber
-$btnNow.FlatAppearance.BorderSize = 1
+$btnNow.FlatAppearance.BorderSize = 0
 $btnNow.Cursor = "Hand"
-$container.Controls.Add($btnNow)
+$Form.Controls.Add($btnNow)
 
+# Feedback textual (sucesso/erro)
 $lblFeedback = New-Object Windows.Forms.Label
 $lblFeedback.Text = ""
-$lblFeedback.ForeColor = $border
-$lblFeedback.Location = New-Object Drawing.Point(20, 582)
-$lblFeedback.Size = New-Object Drawing.Size(440, 18)
+$lblFeedback.ForeColor = $violet
+$lblFeedback.Location = New-Object Drawing.Point(20, 578)
+$lblFeedback.Size = New-Object Drawing.Size(420, 18)
 $lblFeedback.TextAlign = "MiddleCenter"
 $lblFeedback.Font = New-Object Drawing.Font("Consolas", 8, [Drawing.FontStyle]::Bold)
-$container.Controls.Add($lblFeedback)
+$Form.Controls.Add($lblFeedback)
 
 $separator = New-Object Windows.Forms.Panel
-$separator.Location = New-Object Drawing.Point(20, 606)
-$separator.Size = New-Object Drawing.Size(440, 1)
-$separator.BackColor = [Drawing.Color]::FromArgb(30,50,70)
-$container.Controls.Add($separator)
+$separator.Location = New-Object Drawing.Point(20, 604)
+$separator.Size = New-Object Drawing.Size(420, 1)
+$separator.BackColor = [Drawing.Color]::FromArgb(20,40,60)
+$Form.Controls.Add($separator)
 
+# Botao criar atalho na area de trabalho
 $btnShortcut = New-Object Windows.Forms.Button
-$btnShortcut.Text = "CRIAR ÍCONE // 1-CLICK NEON_LINK"
-$btnShortcut.Location = New-Object Drawing.Point(20, 620)
-$btnShortcut.Size = New-Object Drawing.Size(440, 36)
+$btnShortcut.Text = "CRIAR ICONE  // 1-CLICK NEON_LINK"
+$btnShortcut.Location = New-Object Drawing.Point(20, 618)
+$btnShortcut.Size = New-Object Drawing.Size(420, 34)
 $btnShortcut.FlatStyle = "Flat"
-$btnShortcut.BackColor = [Drawing.Color]::Transparent
-$btnShortcut.ForeColor = $textMuted
-$btnShortcut.Font = New-Object Drawing.Font("Consolas", 7, [Drawing.FontStyle]::Bold)
-$btnShortcut.FlatAppearance.BorderColor = [Drawing.Color]::FromArgb(80,80,90)
-$btnShortcut.FlatAppearance.BorderSize = 1
+$btnShortcut.BackColor = [Drawing.Color]::White
+$btnShortcut.ForeColor = [Drawing.Color]::Black
+$btnShortcut.Font = New-Object Drawing.Font("Consolas", 8, [Drawing.FontStyle]::Bold)
+$btnShortcut.FlatAppearance.BorderSize = 0
 $btnShortcut.Cursor = "Hand"
-$container.Controls.Add($btnShortcut)
-# Alias novo style
-$btnShortcutAlias = $btnShortcut
+$Form.Controls.Add($btnShortcut)
