@@ -4,7 +4,7 @@
  * Montado em #neon-root, sincroniza status via localStorage e evento neon-feedback.
  */
 import React, { useEffect, useState } from 'react';
-import { NeonBadge, NeonFeedback } from './styled/neon.js';
+import { NeonBadge, NeonFeedback } from '../neon-protocol/web/components.js';
 
 export default function NeonDemo() {
   const [scheduled, setScheduled] = useState(false);
