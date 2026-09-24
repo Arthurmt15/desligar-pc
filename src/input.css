@@ -3,8 +3,7 @@
 html,body{height:100%;overflow:hidden}
 body{background:radial-gradient(circle at 50% -10%,rgba(0,119,255,.18),transparent 45%),#020711;color:var(--text);font-family:Inter,sans-serif;display:flex;justify-content:center;align-items:center;padding:10px}
 .app{width:100%;max-width:500px;max-height:100%;display:flex;flex-direction:column;background:linear-gradient(145deg,rgba(4,15,31,.98),rgba(1,7,17,.98));border:1px solid rgba(0,234,255,.22);border-radius:10px;box-shadow:0 0 50px rgba(0,119,255,.08),inset 0 0 50px rgba(0,119,255,.03)}
-.topbar{height:25px;flex-shrink:0;display:flex;justify-content:space-between;align-items:center;padding:0 15px;border-bottom:1px solid var(--cyan);background:rgba(0,0,0,.35)}
-.window-title{display:flex;align-items:center;gap:8px;font-size:11px}.power-icon-small{color:var(--cyan)}.window-controls{display:flex;gap:15px;color:#a9bad2;font-size:14px}.window-controls span:last-child{font-size:16px}
+
 .header{min-height:60px;flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:10px 15px;border-bottom:1px solid rgba(0,234,255,.2)}
 .brand{display:flex;align-items:center;gap:12px}.power-box{width:45px;height:45px;display:grid;place-items:center;border:1px solid var(--cyan);border-radius:8px;color:var(--cyan);font-size:20px;box-shadow:0 0 10px rgba(0,234,255,.3),inset 0 0 10px rgba(0,234,255,.08)}
 .brand h1{font-size:18px;letter-spacing:1px;margin-bottom:2px}.version{display:flex;align-items:center;gap:8px;font-family:"JetBrains Mono",monospace;color:var(--cyan);font-size:11px}.version small{color:#8aa4c8}.online{display:flex;align-items:center;gap:5px;color:#00e6b8}.online i,.status i{width:6px;height:6px;border-radius:50%;background:#00e6b8;box-shadow:0 0 8px #00e6b8}
