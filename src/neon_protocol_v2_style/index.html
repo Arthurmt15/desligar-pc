@@ -1,4 +1,13 @@
-:root {
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DESLIGAR PC // NEON PROTOCOL v2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
             --bg-dark: #070a12;
             --panel-bg: rgba(13, 19, 33, 0.75);
             --panel-border: rgba(0, 243, 255, 0.2);
@@ -400,3 +409,194 @@
             color: #fff;
             background: rgba(0, 243, 255, 0.05);
         }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <div class="brand">
+                <div class="icon-badge">
+                    <i class="fa-solid fa-power-off"></i>
+                </div>
+                <div class="title-group">
+                    <h1>DESLIGAR PC</h1>
+                    <div class="sub">NEON PROTOCOL v2.0</div>
+                </div>
+            </div>
+            <div class="status-pill" id="statusPill">
+                <div class="status-dot"></div>
+                <span id="statusText">OCIOSO</span>
+            </div>
+        </header>
+
+        <main>
+            <div class="timer-display-box">
+                <div class="display-label">T-MINUS // TEMPO RESTANTE</div>
+                <div class="timer-digits" id="timerDisplay">00:00:00</div>
+                <div class="command-preview" id="cmdPreview">shutdown /s /t 0 /f</div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+            </div>
+
+            <div class="section-title">
+                <i class="fa-solid fa-bolt"></i> ATALHOS RÁPIDOS
+            </div>
+            <div class="quick-grid">
+                <button class="btn-quick" onclick="setQuickTime(15)">15 MIN</button>
+                <button class="btn-quick" onclick="setQuickTime(30)">30 MIN</button>
+                <button class="btn-quick" onclick="setQuickTime(60)">01 HORA</button>
+                <button class="btn-quick" onclick="setQuickTime(120)">02 HORAS</button>
+            </div>
+
+            <div class="section-title">
+                <i class="fa-solid fa-sliders"></i> TEMPO PERSONALIZADO
+            </div>
+            <div class="custom-inputs">
+                <div class="input-card">
+                    <label>HORAS</label>
+                    <div class="number-control">
+                        <button class="spin-btn" onclick="adjustValue('hours', -1)"><i class="fa-solid fa-minus"></i></button>
+                        <input type="number" id="hours" value="0" min="0" max="24" readonly>
+                        <button class="spin-btn" onclick="adjustValue('hours', 1)"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                </div>
+                <div class="input-card">
+                    <label>MINUTOS</label>
+                    <div class="number-control">
+                        <button class="spin-btn" onclick="adjustValue('minutes', -1)"><i class="fa-solid fa-minus"></i></button>
+                        <input type="number" id="minutes" value="30" min="0" max="59" readonly>
+                        <button class="spin-btn" onclick="adjustValue('minutes', 1)"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                </div>
+                <div class="input-card">
+                    <label>SEGUNDOS</label>
+                    <div class="number-control">
+                        <button class="spin-btn" onclick="adjustValue('seconds', -1)"><i class="fa-solid fa-minus"></i></button>
+                        <input type="number" id="seconds" value="0" min="0" max="59" readonly>
+                        <button class="spin-btn" onclick="adjustValue('seconds', 1)"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-group">
+                <button class="btn-main btn-schedule" onclick="startTimer()">
+                    <i class="fa-solid fa-clock"></i> AGENDAR DESLIGAMENTO
+                </button>
+                
+                <div class="grid-2">
+                    <button class="btn-main btn-cancel" onclick="cancelTimer()">
+                        <i class="fa-solid fa-xmark"></i> CANCELAR
+                    </button>
+                    <button class="btn-main btn-now" onclick="shutdownNow()">
+                        <i class="fa-solid fa-skull"></i> AGORA
+                    </button>
+                </div>
+
+                <button class="btn-shortcut" onclick="createIcon()">
+                    <i class="fa-solid fa-link"></i> CRIAR ÍCONE // 1-CLICK NEON_LINK
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        let countdown;
+        let totalSeconds = 0;
+        let remainingSeconds = 0;
+
+        function adjustValue(id, change) {
+            const input = document.getElementById(id);
+            let val = parseInt(input.value) + change;
+            let max = id === 'hours' ? 24 : 59;
+            if (val < 0) val = max;
+            if (val > max) val = 0;
+            input.value = val;
+            updateCommandPreview();
+        }
+
+        function setQuickTime(mins) {
+            document.getElementById('hours').value = Math.floor(mins / 60);
+            document.getElementById('minutes').value = mins % 60;
+            document.getElementById('seconds').value = 0;
+            updateCommandPreview();
+        }
+
+        function getCalculatedSeconds() {
+            const h = parseInt(document.getElementById('hours').value) || 0;
+            const m = parseInt(document.getElementById('minutes').value) || 0;
+            const s = parseInt(document.getElementById('seconds').value) || 0;
+            return (h * 3600) + (m * 60) + s;
+        }
+
+        function updateCommandPreview() {
+            const sec = getCalculatedSeconds();
+            document.getElementById('cmdPreview').innerText = `shutdown /s /t ${sec} /f`;
+        }
+
+        function formatTime(sec) {
+            const h = Math.floor(sec / 3600).toString().padStart(2, '0');
+            const m = Math.floor((sec % 3600) / 60).toString().padStart(2, '0');
+            const s = (sec % 60).toString().padStart(2, '0');
+            return `${h}:${m}:${s}`;
+        }
+
+        function startTimer() {
+            clearInterval(countdown);
+            totalSeconds = getCalculatedSeconds();
+            if (totalSeconds <= 0) return;
+
+            remainingSeconds = totalSeconds;
+            
+            const pill = document.getElementById('statusPill');
+            const statusText = document.getElementById('statusText');
+            pill.classList.add('active');
+            statusText.innerText = 'EXECUTA_';
+
+            updateDisplay();
+
+            countdown = setInterval(() => {
+                remainingSeconds--;
+                updateDisplay();
+
+                if (remainingSeconds <= 0) {
+                    clearInterval(countdown);
+                    alert('PROTOCOLO DE DESLIGAMENTO INICIADO!');
+                    cancelTimer();
+                }
+            }, 1000);
+        }
+
+        function updateDisplay() {
+            document.getElementById('timerDisplay').innerText = formatTime(remainingSeconds);
+            const progress = ((totalSeconds - remainingSeconds) / totalSeconds) * 100;
+            document.getElementById('progressBar').style.width = `${progress}%`;
+        }
+
+        function cancelTimer() {
+            clearInterval(countdown);
+            remainingSeconds = 0;
+            document.getElementById('timerDisplay').innerText = "00:00:00";
+            document.getElementById('progressBar').style.width = "0%";
+            
+            const pill = document.getElementById('statusPill');
+            const statusText = document.getElementById('statusText');
+            pill.classList.remove('active');
+            statusText.innerText = 'OCIOSO';
+        }
+
+        function shutdownNow() {
+            if (confirm('Deseja desligar o sistema imediatamente?')) {
+                alert('Executando: shutdown /s /t 0 /f');
+            }
+        }
+
+        function createIcon() {
+            alert('Atalho gerado com sucesso!');
+        }
+
+        updateCommandPreview();
+    </script>
+</body>
+</html>

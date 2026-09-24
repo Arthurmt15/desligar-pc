@@ -1,93 +1,102 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Desligar PC // Neon Protocol</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/src/input.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DESLIGAR PC // NEON PROTOCOL v2</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/src/input.css">
 </head>
 <body>
-<div class="app">
-<header class="topbar">
-  <div class="window-title"><div class="power-icon-small">◉</div>DESLIGAR PC // NEON PROTOCOL</div>
-  <div class="window-controls"><span>—</span><span>□</span><span>×</span></div>
-</header>
+    <div class="container">
+        <header>
+            <div class="brand">
+                <div class="icon-badge">
+                    <i class="fa-solid fa-power-off"></i>
+                </div>
+                <div class="title-group">
+                    <h1>DESLIGAR PC</h1>
+                    <div class="sub">NEON PROTOCOL v2.0</div>
+                </div>
+            </div>
+            <div class="status-pill" id="statusPill">
+                <div class="status-dot"></div>
+                <span id="statusText">OCIOSO</span>
+            </div>
+        </header>
 
-<section class="header">
-  <div class="brand">
-    <div class="power-box"><span>⏻</span></div>
-    <div>
-      <h1>DESLIGAR PC //</h1>
-      <div class="version"><span>NEON PROTOCOL</span><small>v2.4.1</small><div class="online"><i></i>ONLINE</div></div>
+        <main>
+            <div class="timer-display-box">
+                <div class="display-label">T-MINUS // TEMPO RESTANTE</div>
+                <div class="timer-digits" id="timerDisplay">00:00:00</div>
+                <div class="command-preview" id="cmdPreview">shutdown /s /t 0 /f</div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+            </div>
+
+            <div class="section-title">
+                <i class="fa-solid fa-bolt"></i> ATALHOS RÁPIDOS
+            </div>
+            <div class="quick-grid">
+                <button class="btn-quick" onclick="setQuickTime(15)">15 MIN</button>
+                <button class="btn-quick" onclick="setQuickTime(30)">30 MIN</button>
+                <button class="btn-quick" onclick="setQuickTime(60)">01 HORA</button>
+                <button class="btn-quick" onclick="setQuickTime(120)">02 HORAS</button>
+            </div>
+
+            <div class="section-title">
+                <i class="fa-solid fa-sliders"></i> TEMPO PERSONALIZADO
+            </div>
+            <div class="custom-inputs">
+                <div class="input-card">
+                    <label>HORAS</label>
+                    <div class="number-control">
+                        <button class="spin-btn" onclick="adjustValue('hours', -1)"><i class="fa-solid fa-minus"></i></button>
+                        <input type="number" id="hours" value="0" min="0" max="24" readonly>
+                        <button class="spin-btn" onclick="adjustValue('hours', 1)"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                </div>
+                <div class="input-card">
+                    <label>MINUTOS</label>
+                    <div class="number-control">
+                        <button class="spin-btn" onclick="adjustValue('minutes', -1)"><i class="fa-solid fa-minus"></i></button>
+                        <input type="number" id="minutes" value="30" min="0" max="59" readonly>
+                        <button class="spin-btn" onclick="adjustValue('minutes', 1)"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                </div>
+                <div class="input-card">
+                    <label>SEGUNDOS</label>
+                    <div class="number-control">
+                        <button class="spin-btn" onclick="adjustValue('seconds', -1)"><i class="fa-solid fa-minus"></i></button>
+                        <input type="number" id="seconds" value="0" min="0" max="59" readonly>
+                        <button class="spin-btn" onclick="adjustValue('seconds', 1)"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-group">
+                <button class="btn-main btn-schedule" onclick="startTimer()">
+                    <i class="fa-solid fa-clock"></i> AGENDAR DESLIGAMENTO
+                </button>
+                
+                <div class="grid-2">
+                    <button class="btn-main btn-cancel" onclick="cancelTimer()">
+                        <i class="fa-solid fa-xmark"></i> CANCELAR
+                    </button>
+                    <button class="btn-main btn-now" onclick="shutdownNow()">
+                        <i class="fa-solid fa-skull"></i> AGORA
+                    </button>
+                </div>
+
+                <button class="btn-shortcut" onclick="createIcon()">
+                    <i class="fa-solid fa-link"></i> CRIAR ÍCONE // 1-CLICK NEON_LINK
+                </button>
+                <div id="statusMessage" style="display:none"></div>
+            </div>
+        </main>
     </div>
-  </div>
-  <div class="status" id="statusBadge"><i></i>OCIOSO</div>
-</section>
-
-<main>
-<section class="countdown-card">
-  <div class="section-title center"><span class="title-icon">◷</span>T-MINUS <span>//</span> TEMPO RESTANTE</div>
-  <div class="timer">
-    <span id="hoursDisplay">00</span><b>:</b><span id="minutesDisplay">00</span><b>:</b><span id="secondsDisplay">00</span>
-  </div>
-  <div class="command">
-    <span class="terminal-icon">&gt;_</span><span id="commandText">shutdown /s /t 7200 /f</span>
-    <button onclick="copyCommand()">▣</button>
-  </div>
-  <div class="progress-info">
-    <span>PROGRESS</span><strong id="progressPercent">0%</strong>
-    <div class="progress"><div id="progressBar"></div></div>
-    <span id="progressText">7200 // SHUTDOWN_INITIATED</span>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-heading"><span class="heading-icon">ϟ</span><h2>ATALHOS RÁPIDOS</h2><span>// QUICK_SELECT</span></div>
-  <div class="quick-grid">
-    <button class="quick cyan" onclick="setTimer(0,15,0)"><span>◷</span>15 MIN</button>
-    <button class="quick blue" onclick="setTimer(0,30,0)"><span>◷</span>30 MIN</button>
-    <button class="quick pink" onclick="setTimer(1,0,0)"><span>◷</span>01 HORA</button>
-    <button class="quick purple" onclick="setTimer(2,0,0)"><span>◷</span>02 HORAS</button>
-  </div>
-</section>
-
-<section class="section">
-  <div class="section-heading"><span class="heading-icon">⚙</span><h2>TEMPO PERSONALIZADO</h2><span>// CUSTOM_INPUT</span></div>
-  <div class="custom-grid">
-    <div class="time-box cyan-border">
-      <label>◷ &nbsp; HORAS</label>
-      <div class="input-wrapper"><input id="hours" type="number" min="0" max="99" value="2"><div class="arrows"><button onclick="changeValue('hours',1)">▲</button><button onclick="changeValue('hours',-1)">▼</button></div></div>
-    </div>
-    <div class="time-box blue-border">
-      <label>◷ &nbsp; MINUTOS</label>
-      <div class="input-wrapper"><input id="minutes" type="number" min="0" max="59" value="0"><div class="arrows"><button onclick="changeValue('minutes',1)">▲</button><button onclick="changeValue('minutes',-1)">▼</button></div></div>
-    </div>
-    <div class="time-box purple-border">
-      <label>◷ &nbsp; SEGUNDOS</label>
-      <div class="input-wrapper"><input id="seconds" type="number" min="0" max="59" value="0"><div class="arrows"><button onclick="changeValue('seconds',1)">▲</button><button onclick="changeValue('seconds',-1)">▼</button></div></div>
-    </div>
-  </div>
-</section>
-
-<button class="schedule" onclick="scheduleShutdown()"><span>▶</span>AGENDAR DESLIGAMENTO<b>›</b></button>
-
-<div class="actions">
-  <button class="cancel" onclick="cancelShutdown()">× <span>CANCELAR</span></button>
-  <button class="now" onclick="shutdownNow()">◆ <span>AGORA</span></button>
-</div>
-
-<div class="message"><span></span><b id="statusMessage">Desligamento cancelado</b><span></span></div>
-
-<div class="footer-action">
-  <div class="info-icon">i</div>
-  <span>Criar ícone na Área de Trabalho - 1 clique</span>
-  <button onclick="createShortcut()" aria-label="Criar atalho">□+</button>
-</div>
-</main>
-</div>
-<script type="module" src="/src/main.js"></script>
+    <script type="module" src="/src/main.js"></script>
 </body>
 </html>
