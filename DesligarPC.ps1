@@ -349,9 +349,9 @@ $numSecs.Add_ValueChanged({ Update-CmdPreview })
 Update-CmdPreview
 
 function Format-Time($s) {
-    $h = [Math]::Floor($s/3600)
-    $m = [Math]::Floor(($s%3600)/60)
-    $sec = $s%60
+    $h = [int][Math]::Floor($s/3600)
+    $m = [int][Math]::Floor(($s%3600)/60)
+    $sec = [int]($s%60)
     return ("{0:D2}:{1:D2}:{2:D2}" -f $h,$m,$sec)
 }
 
