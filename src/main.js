@@ -42,20 +42,22 @@ function updatePreview() {
 
 function setFeedback(msg, type = 'info') {
   els.feedback.textContent = msg;
-  els.feedback.className = 'text-sm text-center min-h-[20px] ' + (
-    type === 'error' ? 'text-red-400' :
-    type === 'success' ? 'text-emerald-400' :
-    'text-zinc-400'
+  els.feedback.className = 'font-mono text-sm text-center min-h-[20px] font-bold tracking-wide ' + (
+    type === 'error' ? 'text-[#FF0040] drop-shadow-[0_0_8px_rgba(255,0,64,0.5)]' :
+    type === 'success' ? 'text-[#00F0FF] drop-shadow-[0_0_8px_rgba(0,240,255,0.6)]' :
+    'text-[#00F0FF]/60'
   );
+  // sync com styled-components island
+  window.dispatchEvent(new CustomEvent('neon-feedback', { detail: { text: msg, type } }));
 }
 
 function setBadge(scheduled) {
   if (scheduled) {
-    els.badge.innerHTML = '<span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span> Agendado';
-    els.badge.className = 'inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium bg-amber-500/10 border border-amber-500/20 text-amber-400';
+    els.badge.innerHTML = '<span class="w-2 h-2 rounded-full bg-[#FF00A8] animate-pulse shadow-[0_0_8px_#FF00A8]"></span> AGENDADO';
+    els.badge.className = 'inline-flex items-center gap-2 pl-2.5 pr-3 py-1.5 text-[11px] font-mono font-black tracking-widest uppercase bg-black border border-[#FF00A8]/40 text-[#FF00A8] shadow-[0_0_12px_rgba(255,0,168,0.3)]';
   } else {
-    els.badge.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Ocioso';
-    els.badge.className = 'inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium bg-zinc-900 border border-zinc-800 text-zinc-400';
+    els.badge.innerHTML = '<span class="w-2 h-2 rounded-full bg-[#00F0FF] animate-pulse shadow-[0_0_8px_#00F0FF]"></span> OCIOSO';
+    els.badge.className = 'inline-flex items-center gap-2 pl-2.5 pr-3 py-1.5 text-[11px] font-mono font-black tracking-widest uppercase bg-black border border-[#00F0FF]/30 text-[#00F0FF] shadow-[0_0_10px_rgba(0,240,255,0.2)]';
   }
 }
 
@@ -67,6 +69,7 @@ function startCountdown(seconds) {
   localStorage.setItem('desligar_total', totalSeconds);
   setBadge(true);
   els.btnCancel.disabled = false;
+  els.btnCancel.classList.remove('opacity-40');
   els.btnSchedule.disabled = true;
   els.btnSchedule.classList.add('opacity-50', 'cursor-not-allowed');
 
@@ -85,7 +88,9 @@ function stopCountdown() {
   els.countdown.textContent = '00:00:00';
   els.progress.style.width = '0%';
   setBadge(false);
-  els.btnCancel.disabled = true;
+  // botão Cancelar permanece habilitado - sempre visível/clicável
+  els.btnCancel.disabled = false;
+  els.btnCancel.classList.remove('opacity-40');
   els.btnSchedule.disabled = false;
   els.btnSchedule.classList.remove('opacity-50', 'cursor-not-allowed');
 }
@@ -142,10 +147,10 @@ document.querySelectorAll('.preset-btn').forEach(btn => {
     els.minutes.value = m;
     els.seconds.value = 0;
     updatePreview();
-    // highlight
-    document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('bg-violet-600', 'border-violet-500', 'text-white'));
-    btn.classList.add('bg-violet-600', 'border-violet-500', 'text-white');
-    setTimeout(() => btn.classList.remove('bg-violet-600', 'border-violet-500', 'text-white'), 600);
+    // highlight cyber
+    document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('!bg-[#00F0FF]', '!border-[#00F0FF]', '!text-black', '!shadow-[0_0_15px_rgba(0,240,255,0.5)]'));
+    btn.classList.add('!bg-[#00F0FF]', '!border-[#00F0FF]', '!text-black', '!shadow-[0_0_15px_rgba(0,240,255,0.5)]');
+    setTimeout(() => btn.classList.remove('!bg-[#00F0FF]', '!border-[#00F0FF]', '!text-black', '!shadow-[0_0_15px_rgba(0,240,255,0.5)]'), 800);
   });
 });
 
