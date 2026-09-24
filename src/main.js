@@ -30,8 +30,6 @@ function updateCommandPreview() {
   const m = parseInt(document.getElementById('minutes').value) || 0;
   const s = parseInt(document.getElementById('seconds').value) || 0;
   const sec = h * 3600 + m * 60 + s;
-  const cmd = document.getElementById('commandText');
-  if (cmd) cmd.textContent = `shutdown /s /t ${sec} /f`;
   const pt = document.getElementById('progressText');
   if (pt && !scheduled) pt.textContent = `${sec} // SHUTDOWN_INITIATED`;
 }
@@ -81,10 +79,7 @@ function showMessage(msg, type = 'info') {
   const el = document.getElementById('statusMessage'); if (el) el.textContent = msg;
   if (el) el.style.color = type === 'error' ? '#ff1979' : type === 'success' ? '#00eaff' : '#72a8dd';
 }
-function copyCommand() {
-  const cmd = document.getElementById('commandText').textContent;
-  navigator.clipboard.writeText(cmd); showMessage('Comando copiado.', 'success');
-}
+
 function updateStatusBadge(isScheduled) {
   const st = document.getElementById('statusBadge') || document.querySelector('.status'); if (!st) return;
   st.innerHTML = `<i></i>${isScheduled ? 'AGENDADO' : 'OCIOSO'}`;
@@ -123,4 +118,4 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 window.changeValue = changeValue; window.setTimer = setTimer;
 window.scheduleShutdown = scheduleShutdown; window.cancelShutdown = cancelShutdown;
-window.shutdownNow = shutdownNow; window.copyCommand = copyCommand; window.createShortcut = createShortcut;
+window.shutdownNow = shutdownNow; window.createShortcut = createShortcut;
