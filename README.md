@@ -1,7 +1,7 @@
-# DESLIGAR PC // AURORA PREMIUM
+# DESLIGAR PC // NEON PROTOCOL
 
-> **Style refeito do zero — Aurora Premium** — vanilla CSS (`--bg #09090B, --panel #18181B, --violet #8B5CF6, --cyan #06B6D4, --amber #F59E0B`)
-> Frontend 100% novo (glassmorphism, Inter + JetBrains Mono), apenas `server/server.js` endpoints mantidos. Inspirado no neon-protocol-2 mas totalmente redesenhado.
+> **Style 100% refeito de `src/neon-protocol-2/`** — vanilla CSS (`--bg #020711, --panel #071426, --cyan #00eaff, --blue #168cff, --purple #874cff, --pink #ff008c`)
+> Todo o frontend substituído, apenas `server/server.js` endpoints mantidos. Texto, cores e layout totalmente novos.
 
 > **Agora SEM precisar rodar `npm start` ou Node!** App nativo leve em PowerShell.
 
@@ -34,18 +34,18 @@ npm start
 - **Desligar agora** → `shutdown /s /t 0 /f`
 - **Criar ícone na Área de Trabalho** → botão dentro do app
 
-## Arquivos (Aurora Premium)
+## Arquivos (Neon Protocol 2 - 100%)
 ```
 desligar/
 ├── DesligarPC.ps1          # Entry point (26 linhas, dot-source src-ps/*)
-├── src-ps/Theme.ps1        # Tema Aurora #09090B/#8B5CF6 (35 linhas)
-├── src-ps/UI.ps1           # UI WinForms 278 linhas (Aurora)
+├── src-ps/Theme.ps1        # Tema #020711/#00eaff (35 linhas, neon-protocol-2)
+├── src-ps/UI.ps1           # UI WinForms 278 linhas (neon)
 ├── src-ps/Logic.ps1        # Lógica + persistência cronômetro (210 linhas)
-├── index.html              # ★ Aurora (app 560px, glass, Inter)
-├── src/input.css           # ★ Aurora CSS (:root --bg --panel --violet etc.)
-├── src/main.js             # ★ Vanilla JS + fetch /api/* (207 linhas)
+├── index.html              # ★ Neon Protocol 2 (app 1000px, topbar, countdown-card)
+├── src/input.css           # ★ style.css neon-protocol-2 (:root --bg #020711)
+├── src/main.js             # ★ script.js + fetch /api/* (endpoints)
 ├── server/server.js        # ★★ Apenas endpoints (/shutdown, /cancel, /status)
-└── package.json            # vite + express
+└── package.json            # vite + express (vanilla)
 ```
 
 ## Criar atalho manualmente
