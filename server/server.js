@@ -28,7 +28,24 @@ if (fs.existsSync(distPath)) {
   app.use(express.static(distPath));
 }
 
+// Persistencia para sobreviver a restart do server (Windows shutdown persiste)
+const scheduleFile = path.join(PROJECT_ROOT, 'server', '.schedule.json');
 let lastSchedule = null; // { seconds, at: Date }
+try {
+  if (fs.existsSync(scheduleFile)) {
+    const j = JSON.parse(fs.readFileSync(scheduleFile, 'utf8'));
+    lastSchedule = { seconds: j.seconds, at: new Date(j.at) };
+    // expira se ja passou
+    const rem = lastSchedule.seconds - Math.floor((Date.now() - lastSchedule.at) / 1000);
+    if (rem <= 0) { lastSchedule = null; try { fs.unlinkSync(scheduleFile); } catch {} }
+  }
+} catch {}
+function saveSchedule() {
+  try {
+    if (lastSchedule) fs.writeFileSync(scheduleFile, JSON.stringify({ seconds: lastSchedule.seconds, at: lastSchedule.at }), 'utf8');
+    else try { fs.unlinkSync(scheduleFile); } catch {}
+  } catch {}
+}
 
 function execAsync(cmd) {
   return new Promise((resolve, reject) => {
@@ -49,8 +66,19 @@ app.post('/api/shutdown', async (req, res) => {
     // /f força fechamento, necessário quando t > 0
     await execAsync(`shutdown /s /t ${sec} /f`);
     lastSchedule = { seconds: sec, at: new Date() };
+    saveSchedule();
     res.json({ ok: true, seconds: sec });
   } catch (e) {
+    // Se ja ha agendamento (1190), cancela e tenta novamente - corrige bug de persistencia
+    if (e.message.includes('1190') || e.message.toLowerCase().includes('ja foi agendado') || e.message.toLowerCase().includes('already')) {
+      try {
+        await execAsync('shutdown /a');
+        await execAsync(`shutdown /s /t ${sec} /f`);
+        lastSchedule = { seconds: sec, at: new Date() };
+        saveSchedule();
+        return res.json({ ok: true, seconds: sec, note: 'Reagendado apos cancelar anterior' });
+      } catch (e2) { return res.status(500).json({ error: e2.message }); }
+    }
     res.status(500).json({ error: e.message });
   }
 });
@@ -58,13 +86,13 @@ app.post('/api/shutdown', async (req, res) => {
 app.post('/api/cancel', async (req, res) => {
   try {
     await execAsync('shutdown /a');
-    lastSchedule = null;
+    lastSchedule = null; saveSchedule();
     res.json({ ok: true });
   } catch (e) {
     // shutdown /a retorna erro se não houver agendamento
     // tratamos como sucesso se mensagem indicar que não há
     if (e.message.includes('332') || e.message.toLowerCase().includes('no')) {
-      lastSchedule = null;
+      lastSchedule = null; saveSchedule();
       return res.json({ ok: true, note: 'Nenhum agendamento ativo' });
     }
     res.status(500).json({ error: e.message });
@@ -81,7 +109,10 @@ app.post('/api/shutdown-now', async (req, res) => {
 });
 
 app.get('/api/status', (req, res) => {
-  res.json({ scheduled: !!lastSchedule, lastSchedule });
+  if (!lastSchedule) return res.json({ scheduled: false, remaining: 0, total: 0 });
+  const remaining = lastSchedule.seconds - Math.floor((Date.now() - lastSchedule.at) / 1000);
+  if (remaining <= 0) { lastSchedule = null; saveSchedule(); return res.json({ scheduled: false, remaining: 0, total: 0 }); }
+  res.json({ scheduled: true, remaining, total: lastSchedule.seconds, lastSchedule });
 });
 
 app.post('/api/create-shortcut', async (req, res) => {

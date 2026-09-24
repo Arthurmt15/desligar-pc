@@ -187,9 +187,29 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.removeItem('desligar_endTime'); localStorage.removeItem('desligar_total');
     }
   }
-  // checa backend
+  // checa backend - corrige bug: se fechar e reabrir, restaura do servidor mesmo sem localStorage
   fetch('/api/status').then(r => r.json()).then(d => {
-    if (d.scheduled && !scheduled) showMessage('Ha agendamento no sistema', 'info');
+    if (d.scheduled && d.remaining > 0 && !scheduled) {
+      // restaura countdown a partir do backend (fonte unica apos reload)
+      totalSeconds = d.remaining;
+      initialSeconds = d.total || d.remaining;
+      scheduled = true;
+      // recria endTime para compat com tick que nao usa, mas salva para proximos reloads
+      const end = Date.now() + d.remaining * 1000;
+      localStorage.setItem('desligar_endTime', end);
+      localStorage.setItem('desligar_total', initialSeconds);
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => { if (totalSeconds <= 0) { clearInterval(timerInterval); scheduled = false; return; } totalSeconds--; updateTimer(); }, 1000);
+      updateStatusBadge(true);
+      showMessage(`Restaurado do sistema: ${Math.floor(d.remaining/60)}m ${d.remaining%60}s restantes`, 'info');
+      updateTimer();
+    } else if (d.scheduled && !scheduled) {
+      showMessage('Ha agendamento no sistema', 'info');
+    }
+    // se backend diz nao agendado mas localStorage dizia que sim, limpa localStorage expirado
+    if (!d.scheduled && scheduled && totalSeconds <= 0) {
+      localStorage.removeItem('desligar_endTime'); localStorage.removeItem('desligar_total');
+    }
   }).catch(()=>{});
 });
 

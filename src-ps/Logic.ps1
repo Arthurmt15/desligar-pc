@@ -13,6 +13,34 @@ $script:endTime = $null       # DateTime de termino
 $script:totalSeconds = 0      # total inicial para progresso
 $script:scheduled = $false    # flag se ha agendamento ativo
 
+# Persistencia para sobreviver ao fechar/reabrir (Windows shutdown persiste)
+$scheduleFile = Join-Path $env:TEMP "desligar_neon_schedule.json"
+function Save-Schedule {
+    try {
+        if ($script:scheduled -and $script:endTime) {
+            @{ total=$script:totalSeconds; end=$script:endTime.ToString('o') } | ConvertTo-Json | Set-Content -LiteralPath $scheduleFile -Encoding UTF8
+        } else { if (Test-Path $scheduleFile) { Remove-Item $scheduleFile -Force } }
+    } catch {}
+}
+function Load-Schedule {
+    try {
+        if (Test-Path $scheduleFile) {
+            $j = Get-Content $scheduleFile -Raw | ConvertFrom-Json
+            $end = [DateTime]::Parse($j.end)
+            $rem = [Math]::Ceiling(($end - (Get-Date)).TotalSeconds)
+            if ($rem -gt 0) {
+                # verifica se shutdown ainda esta agendado (tenta /a com dry-run via query)
+                # Windows nao tem query, entao confia no arquivo se rem >0
+                $script:totalSeconds = [int]$j.total
+                $script:endTime = $end
+                $script:scheduled = $true
+                return $rem
+            } else { Remove-Item $scheduleFile -Force -ErrorAction SilentlyContinue }
+        }
+    } catch {}
+    return 0
+}
+
 $timer = New-Object Windows.Forms.Timer
 $timer.Interval = 1000 # tick a cada segundo
 
@@ -70,6 +98,9 @@ $timer.Add_Tick({
     }
     if ($remaining -le 0) {
         $timer.Stop()
+        $script:scheduled = $false
+        $script:endTime = $null
+        Save-Schedule
         Set-Feedback "Desligando..." $emerald
     } elseif ($remaining -eq 60) {
         # alerta sonoro 1 min antes
@@ -87,6 +118,7 @@ $btnSchedule.Add_Click({
         $script:totalSeconds = $sec
         $script:endTime = (Get-Date).AddSeconds($sec)
         $script:scheduled = $true
+        Save-Schedule
         $timer.Start()
         $lblCountdown.Text = Format-Time $sec
         $progress.Width = 0
@@ -106,6 +138,7 @@ $btnCancel.Add_Click({
         $timer.Stop()
         $script:endTime = $null
         $script:scheduled = $false
+        Save-Schedule
         $lblCountdown.Text = "00:00:00"
         $progress.Width = 0
         Set-Badge $false
@@ -121,6 +154,7 @@ $btnCancel.Add_Click({
         $timer.Stop()
         $script:endTime = $null
         $script:scheduled = $false
+        Save-Schedule
         Set-Badge $false
         $btnSchedule.Enabled = $true
         $btnSchedule.BackColor = $violet
@@ -167,9 +201,26 @@ $btnCancel.Add_MouseLeave({ $btnCancel.BackColor = [Drawing.Color]::Black })
 $btnNow.Add_MouseEnter({ $btnNow.BackColor = $amberHover })
 $btnNow.Add_MouseLeave({ $btnNow.BackColor = $amber })
 
+# --- Restore ao abrir (corrige bug: zerava ao reabrir mesmo com agendamento) ---
+$remRestore = Load-Schedule
+if ($remRestore -gt 0) {
+    $lblCountdown.Text = Format-Time $remRestore
+    if ($script:totalSeconds -gt 0) {
+        $pct = [Math]::Round((($script:totalSeconds - $remRestore)/$script:totalSeconds)*100)
+        if ($pct -lt 0) { $pct=0 }; if ($pct -gt 100) { $pct=100 }
+        $progress.Width = [int](382 * $pct / 100)
+    }
+    Set-Badge $true
+    $btnSchedule.Enabled = $false
+    $btnSchedule.BackColor = [Drawing.Color]::FromArgb(39,39,42)
+    $timer.Start()
+    Set-Feedback ("Restaurado: " + (Format-Time $remRestore) + " restantes") $emerald
+}
+
 # Fechamento - mantem agendamento ativo se houver
 $Form.Add_FormClosing({
     if ($script:scheduled) {
         # nao cancela automaticamente, deixa shutdown agendado no sistema
+        Save-Schedule
     }
 })
