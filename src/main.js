@@ -86,7 +86,7 @@ function copyCommand() {
   navigator.clipboard.writeText(cmd); showMessage('Comando copiado.', 'success');
 }
 function updateStatusBadge(isScheduled) {
-  const st = document.querySelector('.status'); if (!st) return;
+  const st = document.getElementById('statusBadge') || document.querySelector('.status'); if (!st) return;
   st.innerHTML = `<i></i>${isScheduled ? 'AGENDADO' : 'OCIOSO'}`;
   st.style.borderColor = isScheduled ? '#ff008c' : '#28517e';
   st.style.color = isScheduled ? '#ff008c' : '#a9bad2';
@@ -100,8 +100,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const el = document.getElementById(id); if (el) el.addEventListener('input', updateCommandPreview);
   });
   updateCommandPreview();
-  const footerBtn = document.querySelector('.footer-action button');
-  if (footerBtn) footerBtn.addEventListener('click', createShortcut);
   const saved = localStorage.getItem('desligar_endTime');
   const tot = parseInt(localStorage.getItem('desligar_total') || '0');
   if (saved) {
@@ -125,4 +123,4 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 window.changeValue = changeValue; window.setTimer = setTimer;
 window.scheduleShutdown = scheduleShutdown; window.cancelShutdown = cancelShutdown;
-window.shutdownNow = shutdownNow; window.copyCommand = copyCommand;
+window.shutdownNow = shutdownNow; window.copyCommand = copyCommand; window.createShortcut = createShortcut;

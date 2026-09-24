@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/src/input.css">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="app">
@@ -24,7 +24,7 @@
       <div class="version"><span>NEON PROTOCOL</span><small>v2.4.1</small><div class="online"><i></i>ONLINE</div></div>
     </div>
   </div>
-  <div class="status" id="statusBadge"><i></i>OCIOSO</div>
+  <div class="status"><i></i>OCIOSO</div>
 </section>
 
 <main>
@@ -34,8 +34,8 @@
     <span id="hoursDisplay">00</span><b>:</b><span id="minutesDisplay">00</span><b>:</b><span id="secondsDisplay">00</span>
   </div>
   <div class="command">
-    <span class="terminal-icon">&gt;_</span><span id="commandText">shutdown /s /t 7200 /f</span>
-    <button onclick="copyCommand()" aria-label="Copiar">▣</button>
+    <span class="terminal-icon">&gt;_</span><span id="commandText">shutdown /s /f 7200 /f</span>
+    <button onclick="copyCommand()">▣</button>
   </div>
   <div class="progress-info">
     <span>PROGRESS</span><strong id="progressPercent">0%</strong>
@@ -45,7 +45,7 @@
 </section>
 
 <section class="section">
-  <div class="section-heading"><span class="heading-icon">ϟ</span><h2>ATALHOS RAPIDOS</h2><span>// QUICK_SELECT</span></div>
+  <div class="section-heading"><span class="heading-icon">ϟ</span><h2>ATALHOS RÁPIDOS</h2><span>// QUICK_SELECT</span></div>
   <div class="quick-grid">
     <button class="quick cyan" onclick="setTimer(0,15,0)"><span>◷</span>15 MIN</button>
     <button class="quick blue" onclick="setTimer(0,30,0)"><span>◷</span>30 MIN</button>
@@ -79,15 +79,15 @@
   <button class="now" onclick="shutdownNow()">◆ <span>AGORA</span></button>
 </div>
 
-<div class="message"><span></span><b id="statusMessage">Pronto para agendar</b><span></span></div>
+<div class="message"><span></span><b id="statusMessage">Desligamento cancelado</b><span></span></div>
 
 <div class="footer-action">
   <div class="info-icon">i</div>
-  <span>Criar icone na Area de Trabalho - 1 clique</span>
-  <button onclick="createShortcut()" aria-label="Criar atalho">□+</button>
+  <span>Criar ícone na Área de Trabalho - 1 clique</span>
+  <button>□+</button>
 </div>
 </main>
 </div>
-<script type="module" src="/src/main.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
