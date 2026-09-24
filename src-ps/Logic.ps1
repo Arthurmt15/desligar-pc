@@ -71,15 +71,16 @@ function Set-Feedback($msg, $color) {
     if ($color) { $lblFeedback.ForeColor = $color } else { $lblFeedback.ForeColor = $textMuted }
 }
 
-# Atualiza badge OCIOSO <-> AGENDADO
+# Atualiza badge OCIOSO <-> AGENDADO (neon v2 style: verde #00ff66 quando ativo)
 function Set-Badge($isScheduled) {
     if ($isScheduled) {
-        $badge.Text = "  Agendado"
-        $badge.BackColor = [Drawing.Color]::FromArgb(60,30,10)
-        $badge.ForeColor = [Drawing.Color]::FromArgb(251,191,36)
+        $badge.Text = "  AGENDADO"
+        $badge.BackColor = [Drawing.Color]::FromArgb(0,40,20)
+        $badge.ForeColor = $emerald
+        try { $badge.FlatAppearance.BorderColor = $emerald } catch {}
     } else {
-        $badge.Text = "  Ocioso"
-        $badge.BackColor = [Drawing.Color]::Black
+        $badge.Text = "  OCIOSO"
+        $badge.BackColor = [Drawing.Color]::FromArgb(255,255,255,12)
         $badge.ForeColor = $textMuted
     }
 }
@@ -90,11 +91,11 @@ $timer.Add_Tick({
     $remaining = [Math]::Ceiling(($script:endTime - (Get-Date)).TotalSeconds)
     if ($remaining -lt 0) { $remaining = 0 }
     $lblCountdown.Text = Format-Time $remaining
-    # progresso 0-100% -> largura da barra
+    # progresso 0-100% -> largura da barra (container novo 400px)
     if ($script:totalSeconds -gt 0) {
         $pct = [Math]::Round((($script:totalSeconds - $remaining) / $script:totalSeconds)*100)
         if ($pct -lt 0) { $pct=0 }; if ($pct -gt 100) { $pct=100 }
-        $progress.Width = [int](382 * $pct / 100)
+        $progress.Width = [int](400 * $pct / 100)
     }
     if ($remaining -le 0) {
         $timer.Stop()
@@ -208,7 +209,7 @@ if ($remRestore -gt 0) {
     if ($script:totalSeconds -gt 0) {
         $pct = [Math]::Round((($script:totalSeconds - $remRestore)/$script:totalSeconds)*100)
         if ($pct -lt 0) { $pct=0 }; if ($pct -gt 100) { $pct=100 }
-        $progress.Width = [int](382 * $pct / 100)
+        $progress.Width = [int](400 * $pct / 100)
     }
     Set-Badge $true
     $btnSchedule.Enabled = $false
