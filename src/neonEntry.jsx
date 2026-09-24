@@ -1,10 +1,13 @@
-// Entry point para island styled-components - monta NeonDemo em #neon-root
-// Separado para manter main.js vanilla e demonstrar styled-components isolado (<300 linhas)
+// Entry Neon Protocol - agora monta App completo 100% styled-components
+// Fonte unica: neon-protocol/web/components.js
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import NeonDemo from './NeonDemo.jsx';
+import App from './App.jsx';
 
-const el = document.getElementById('neon-root');
+// Monta no #root (novo) ou #neon-root (legado) para compatibilidade
+const el = document.getElementById('root') || document.getElementById('neon-root');
 if (el) {
-  createRoot(el).render(<NeonDemo />);
+  // Limpa conteudo vanilla se for root principal
+  if (el.id === 'root') el.innerHTML = '';
+  createRoot(el).render(<App />);
 }

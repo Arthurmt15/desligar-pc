@@ -1,17 +1,15 @@
-/* NEON PROTOCOL - tokens CSS centralizados */
-/* Unica fonte de verdade, importado por src/input.css */
+/* NEON PROTOCOL 2 - tokens centralizados (neon-protocol-2) */
 :root {
-  --neon-void: #02020a;
-  --neon-header: #050712;
-  --neon-card: #060814;
-  --neon-cyan: #00F0FF;
-  --neon-pink: #FF00A8;
-  --neon-purple: #7000FF;
-  --neon-yellow: #FFD000;
-  --neon-red: #FF0040;
-  --neon-text: #E2FFFD;
-  --neon-muted: #78DCF0;
-  --neon-border-dim: #1E3C50;
-  --neon-glow-cyan: 0 0 15px rgba(0,240,255,0.4);
-  --neon-glow-pink: 0 0 15px rgba(255,0,168,0.3);
+  --bg: #020711;
+  --panel: #071426;
+  --cyan: #00eaff;
+  --blue: #168cff;
+  --purple: #874cff;
+  --pink: #ff008c;
+  --text: #f5f8ff;
+  --neon-void: #020711;
+  --neon-cyan: #00eaff;
+  --neon-pink: #ff008c;
+  --neon-purple: #874cff;
+  --neon-text: #f5f8ff;
 }

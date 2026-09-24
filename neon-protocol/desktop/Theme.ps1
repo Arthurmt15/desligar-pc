@@ -10,36 +10,37 @@
     Cores em ARGB: [Drawing.Color]::FromArgb(R,G,B)
 #>
 
-# Fundo principal - void escuro cyberpunk
-$bgMain    = [Drawing.Color]::FromArgb(2,2,10)      # #02020a - fundo da janela
-$bgHeader  = [Drawing.Color]::FromArgb(5,7,18)      # #050712 - header translucido
-$bgCard    = [Drawing.Color]::FromArgb(6,8,20)      # #060814 - cards
-$bgCardAlt = [Drawing.Color]::FromArgb(8,10,28)     # #080A1C - card interno
-$bgInput   = [Drawing.Color]::FromArgb(0,0,0)       # inputs pretos neon
+# Fundo - neon-protocol-2 (#020711, #071426)
+$bgMain    = [Drawing.Color]::FromArgb(2,7,17)      # #020711
+$bgHeader  = [Drawing.Color]::FromArgb(7,20,38)     # #071426
+$bgCard    = [Drawing.Color]::FromArgb(7,20,38)     # #071426
+$bgCardAlt = [Drawing.Color]::FromArgb(6,19,38)     # #061326
+$bgInput   = [Drawing.Color]::FromArgb(11,27,52)    # #0b1b34
 
-# Bordas neon
-$border      = [Drawing.Color]::FromArgb(0,240,255) # cyan principal
-$borderDim   = [Drawing.Color]::FromArgb(30,60,80)  # borda dim para card externo
-$borderLight = [Drawing.Color]::FromArgb(0,200,220)
+# Bordas neon 2
+$border      = [Drawing.Color]::FromArgb(0,234,255) # #00eaff cyan
+$borderDim   = [Drawing.Color]::FromArgb(0,140,255) # #008cff blue
+$borderLight = [Drawing.Color]::FromArgb(22,140,255)
 
 # Texto
-$textMain  = [Drawing.Color]::FromArgb(226,255,253) # branco neon
-$textMuted = [Drawing.Color]::FromArgb(120,220,240) # cyan muted
-$textFaint = [Drawing.Color]::FromArgb(80,100,120)  # labels secundarias
+$textMain  = [Drawing.Color]::FromArgb(245,248,255) # #f5f8ff
+$textMuted = [Drawing.Color]::FromArgb(114,168,221) # #72a8dd
+$textFaint = [Drawing.Color]::FromArgb(90,130,170)
 
-# Acentos primarios - cyberpunk
-$violet      = [Drawing.Color]::FromArgb(0,240,255) # cyan (substitui violet antigo)
-$violetHover = [Drawing.Color]::FromArgb(0,210,235) # hover cyan
-$violetDeep  = [Drawing.Color]::FromArgb(0,170,200)
-$indigo      = [Drawing.Color]::FromArgb(112,0,255) # roxo neon
-$pink        = [Drawing.Color]::FromArgb(255,0,168) # pink neon - contraste
-$pinkHover   = [Drawing.Color]::FromArgb(230,0,150)
+# Acentos - neon-protocol-2
+$violet      = [Drawing.Color]::FromArgb(0,234,255) # #00eaff
+$violetHover = [Drawing.Color]::FromArgb(0,210,240)
+$violetDeep  = [Drawing.Color]::FromArgb(0,180,210)
+$indigo      = [Drawing.Color]::FromArgb(135,76,255) # #874cff purple
+$pink        = [Drawing.Color]::FromArgb(255,0,140) # #ff008c
+$pinkHover   = [Drawing.Color]::FromArgb(230,0,120)
 
 # Estados
-$red       = [Drawing.Color]::FromArgb(255,0,64)   # erro / cancelar - neon red
-$redBg     = [Drawing.Color]::FromArgb(20,0,10)    # fundo botao cancelar
-$redBorder = [Drawing.Color]::FromArgb(80,0,30)
-$amber       = [Drawing.Color]::FromArgb(255,208,0)  # acao imediata - cyber yellow
-$amberHover  = [Drawing.Color]::FromArgb(255,225,40)
-$emerald     = [Drawing.Color]::FromArgb(0,240,255)  # sucesso = cyan
-$cyanGlow    = [Drawing.Color]::FromArgb(0,240,255)
+$red       = [Drawing.Color]::FromArgb(255,0,106)  # #ff006a
+$redBg     = [Drawing.Color]::FromArgb(50,0,25)
+$redBorder = [Drawing.Color]::FromArgb(255,0,106)
+$amber       = [Drawing.Color]::FromArgb(255,217,0)  # #ffd900
+$amberHover  = [Drawing.Color]::FromArgb(255,230,40)
+$emerald     = [Drawing.Color]::FromArgb(0,234,255)
+$cyanGlow    = [Drawing.Color]::FromArgb(0,234,255)
+$blue        = [Drawing.Color]::FromArgb(22,140,255) # #168cff
