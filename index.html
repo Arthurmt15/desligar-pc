@@ -1,3 +1,5 @@
+<!-- NEON PROTOCOL - Design System centralizado em neon-protocol/ -->
+<!-- Toda cor/fonte vem de neon-protocol/tokens.json + web/tokens.css + desktop/Theme.ps1 -->
 <!doctype html>
 <html lang="pt-BR" data-theme="dark">
   <head>
@@ -6,7 +8,8 @@
     <title>DESLIGAR PC // NEON PROTOCOL</title>
     <link rel="stylesheet" href="/src/input.css" />
   </head>
-  <body class="min-h-screen bg-[#02020a] text-[#e2fffd] antialiased selection:bg-[#00F0FF]/30 selection:text-white overflow-x-hidden">
+  <!-- Body usa vars --neon-void/cyan do neon-protocol/web/tokens.css via src/input.css -->
+  <body class="min-h-screen bg-[var(--neon-void)] text-[var(--neon-text)] antialiased selection:bg-[var(--neon-cyan)]/30 selection:text-white overflow-x-hidden" style="background: var(--neon-void); color: var(--neon-text);">
     <!-- CYBERPUNK BACKGROUND -->
     <div class="fixed inset-0 -z-10 overflow-hidden bg-[#02020a]">
       <div class="absolute inset-0 bg-[#02020a]"></div>

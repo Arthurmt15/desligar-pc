@@ -1,4 +1,13 @@
-# Desligar PC - Painel OTIMIZADO (Standalone)
+# DESLIGAR PC // NEON PROTOCOL v2.4.1
+
+> **Design System centralizado em `neon-protocol/`** — style cyberpunk com `styled-components` + WinForms neon.
+> App nativo PowerShell + web Vite/Tailwind, ambos consomem `neon-protocol/tokens.json`.
+
+## Style Central
+- `neon-protocol/tokens.json` — única fonte de verdade (cores `#02020a/#00F0FF/#FF00A8`)
+- `neon-protocol/web/tokens.css` + `components.js` — styled-components web
+- `neon-protocol/desktop/Theme.ps1` — paleta WinForms (re-exportado por `src-ps/Theme.ps1`)
+- Veja `neon-protocol/README.md` para guia completo.
 
 > **Agora SEM precisar rodar `npm start` ou Node!** App nativo leve em PowerShell.
 
@@ -34,13 +43,19 @@ npm start
 ## Arquivos
 ```
 desligar/
-├── DesligarPC.ps1          # ★ APP PRINCIPAL - standalone otimizado
-├── DesligarPC.bat          # Launcher (duplo clique)
-├── iniciar-desligar.bat    # Atalho compatível
-├── dist/                   # Build web (opcional)
-├── server/server.js        # Backend web (legado, não precisa mais)
-├── src/ + index.html       # Frontend web (legado)
-└── package.json
+├── DesligarPC.ps1          # ★ Entry point (26 linhas, dot-source src-ps/*)
+├── src-ps/Theme.ps1        # Proxy -> neon-protocol/desktop/Theme.ps1
+├── src-ps/UI.ps1           # UI WinForms neon (290 linhas)
+├── src-ps/Logic.ps1        # Lógica + Format-Time fix
+├── neon-protocol/          # ★ DESIGN SYSTEM centralizado
+│   ├── tokens.json         # cores/fontes
+│   ├── web/tokens.css + components.js
+│   └── desktop/Theme.ps1
+├── DesligarPC.bat          # Launcher NEON PROTOCOL
+├── src/ + index.html       # Frontend web neon (var --neon-*)
+├── src/styled/neon.js      # Proxy -> neon-protocol/web/components.js
+├── server/server.js        # Backend Express com logs neon
+└── package.json            # styled-components + react
 ```
 
 ## Criar atalho manualmente
@@ -50,7 +65,7 @@ powershell -ExecutionPolicy Bypass -File DesligarPC.ps1
 # depois clique no botão dentro do app
 ```
 
-O atalho criado aponta para: `powershell.exe -ExecutionPolicy Bypass -WindowStyle Hidden -File "C:\...\DesligarPC.ps1"`
+O atalho criado aponta para: `powershell.exe -ExecutionPolicy Bypass -WindowStyle Normal -File "C:\...\DesligarPC.ps1"` (Neon Protocol)
 
 ## Requisitos
 - Windows 10/11

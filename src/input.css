@@ -13,11 +13,11 @@
 
 * { font-family: 'Rajdhani', system-ui, sans-serif; }
 
-/* Scrollbar neon */
+/* Scrollbar neon - usa vars do neon-protocol/web/tokens.css */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: #02020a; }
-::-webkit-scrollbar-thumb { background: #00F0FF; border-radius: 0; box-shadow: 0 0 8px rgba(0,240,255,0.6); }
-::-webkit-scrollbar-thumb:hover { background: #FF00A8; box-shadow: 0 0 8px rgba(255,0,168,0.6); }
+::-webkit-scrollbar-track { background: var(--neon-void); }
+::-webkit-scrollbar-thumb { background: var(--neon-cyan); border-radius: 0; box-shadow: var(--neon-glow-cyan); }
+::-webkit-scrollbar-thumb:hover { background: var(--neon-pink); box-shadow: 0 0 8px rgba(255,0,168,0.6); }
 
 /* Cyberpunk animations */
 @keyframes shimmer {
@@ -48,5 +48,7 @@
   animation: flicker 4s infinite;
 }
 
-/* Selection */
+/* Selection - neon cyan */
 ::selection { background: rgba(0,240,255,0.3); color: white; }
+/* Fallback: garante var --neon-void mesmo se tokens.css falhar */
+body { background: var(--neon-void, #02020a); }

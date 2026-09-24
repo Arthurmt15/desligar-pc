@@ -2,8 +2,11 @@
  * Desligar PC - Frontend Vanilla JS (Neon Protocol)
  * Controla countdown, inputs, presets e chamadas /api/*.
  * Sincroniza com styled-components via evento 'neon-feedback'.
- * Limite: 261 linhas, comentado por secao.
+ * Cores 100% do neon-protocol/tokens.json via CSS vars --neon-*
+ * Limite: <300 linhas, comentado por secao.
  */
+// Carrega tokens centralizados (opcional, para uso JS dinamico)
+// fetch('/neon-protocol/tokens.json').then(r=>r.json()).then(t=>console.log('NEON PROTOCOL',t.meta.version));
 const $ = (s) => document.querySelector(s);
 
 const els = {

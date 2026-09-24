@@ -143,8 +143,10 @@ app.get('*', (req, res) => {
   res.redirect(`http://localhost:${PORT_VITE}`);
 });
 
+// Cores neon para logs - usa ANSI cyan/pink da paleta neon-protocol/tokens.json
+const c = { cyan: '\x1b[36m', pink: '\x1b[35m', dim: '\x1b[2m', reset: '\x1b[0m' };
 app.listen(PORT_API, () => {
-  console.log(`✅ API Desligar PC rodando em http://localhost:${PORT_API}`);
-  console.log(`   Frontend dev: http://localhost:${PORT_VITE} (rode: npm run dev)`);
-  console.log(`   Frontend prod: http://localhost:${PORT_API} (após npm run build + npm start)`);
+  console.log(`${c.cyan}◆ NEON PROTOCOL v2.4.1 ◆${c.reset} API rodando em http://localhost:${PORT_API}`);
+  console.log(`${c.dim}  Frontend dev: http://localhost:${PORT_VITE} (npm run dev)${c.reset}`);
+  console.log(`${c.pink}  Frontend prod: http://localhost:${PORT_API} (apos build)${c.reset} ${c.cyan}[tokens: neon-protocol/tokens.json]${c.reset}`);
 });
