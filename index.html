@@ -3,92 +3,117 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Desligar PC // Neon Protocol</title>
+<title>Desligar PC — Aurora</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-<!-- NEON PROTOCOL v2 - style 100% de src/neon-protocol-2 migrado para index.html + src/input.css (pasta excluida) -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/src/input.css">
 </head>
 <body>
+<!-- Fundo Aurora - gradientes suaves -->
+<div class="bg-aurora" aria-hidden="true"></div>
+
 <div class="app">
-<header class="topbar">
-  <div class="window-title"><div class="power-icon-small">◉</div>DESLIGAR PC // NEON PROTOCOL</div>
-  <div class="window-controls"><span>—</span><span>□</span><span>×</span></div>
-</header>
+  <!-- Topbar minimal -->
+  <div class="topbar">
+    <div class="topbar-left"><span class="dot"></span> DESLIGAR PC — AURORA</div>
+    <div class="topbar-right">v2.5 • Premium</div>
+  </div>
 
-<section class="header">
-  <div class="brand">
-    <div class="power-box"><span>⏻</span></div>
-    <div>
-      <h1>DESLIGAR PC //</h1>
-      <div class="version"><span>NEON PROTOCOL</span><small>v2.4.1</small><div class="online"><i></i>ONLINE</div></div>
+  <!-- Header brand -->
+  <header class="header">
+    <div class="brand">
+      <div class="logo">⏻</div>
+      <div>
+        <h1>DESLIGAR PC</h1>
+        <p>AGENDAMENTO INTELIGENTE <span>•</span> AURORA</p>
+      </div>
     </div>
-  </div>
-  <div class="status"><i></i>OCIOSO</div>
-</section>
+    <div class="status" id="statusBadge"><i></i>OCIOSO</div>
+  </header>
 
-<main>
-<section class="countdown-card">
-  <div class="section-title center"><span class="title-icon">◷</span>T-MINUS <span>//</span> TEMPO RESTANTE</div>
-  <div class="timer">
-    <span id="hoursDisplay">00</span><b>:</b><span id="minutesDisplay">00</span><b>:</b><span id="secondsDisplay">00</span>
-  </div>
-  <div class="command">
-    <span class="terminal-icon">&gt;_</span><span id="commandText">shutdown /s /f 7200 /f</span>
-    <button onclick="copyCommand()">▣</button>
-  </div>
-  <div class="progress-info">
-    <span>PROGRESS</span><strong id="progressPercent">0%</strong>
-    <div class="progress"><div id="progressBar"></div></div>
-    <span id="progressText">7200 // SHUTDOWN_INITIATED</span>
-  </div>
-</section>
+  <main>
+    <!-- Countdown hero -->
+    <section class="hero">
+      <div class="hero-label">TEMPO RESTANTE</div>
+      <div class="timer" id="timerDisplay">
+        <span id="hoursDisplay">00</span><em>:</em><span id="minutesDisplay">00</span><em>:</em><span id="secondsDisplay">00</span>
+      </div>
+      <div class="command">
+        <span class="cmd-icon">›_</span><span id="commandText">shutdown /s /t 0 /f</span>
+        <button class="cmd-copy" onclick="copyCommand()" aria-label="Copiar">⧉</button>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-head"><span>PROGRESSO</span><strong id="progressPercent">0%</strong></div>
+        <div class="progress"><div id="progressBar"></div></div>
+        <div class="progress-foot"><span>0%</span><span id="progressText">PRONTO PARA AGENDAR</span><span>100%</span></div>
+      </div>
+    </section>
 
-<section class="section">
-  <div class="section-heading"><span class="heading-icon">ϟ</span><h2>ATALHOS RÁPIDOS</h2><span>// QUICK_SELECT</span></div>
-  <div class="quick-grid">
-    <button class="quick cyan" onclick="setTimer(0,15,0)"><span>◷</span>15 MIN</button>
-    <button class="quick blue" onclick="setTimer(0,30,0)"><span>◷</span>30 MIN</button>
-    <button class="quick pink" onclick="setTimer(1,0,0)"><span>◷</span>01 HORA</button>
-    <button class="quick purple" onclick="setTimer(2,0,0)"><span>◷</span>02 HORAS</button>
-  </div>
-</section>
+    <!-- Atalhos -->
+    <section class="card">
+      <div class="card-title"><span class="ico">⚡</span><h2>Atalhos</h2><em>TOQUE PARA PREENCHER</em></div>
+      <div class="presets">
+        <button class="preset" onclick="setTimer(0,15,0)"><span>15</span> min</button>
+        <button class="preset primary" onclick="setTimer(0,30,0)"><span>30</span> min</button>
+        <button class="preset" onclick="setTimer(1,0,0)"><span>1</span> hora</button>
+        <button class="preset" onclick="setTimer(2,0,0)"><span>2</span> horas</button>
+      </div>
+    </section>
 
-<section class="section">
-  <div class="section-heading"><span class="heading-icon">⚙</span><h2>TEMPO PERSONALIZADO</h2><span>// CUSTOM_INPUT</span></div>
-  <div class="custom-grid">
-    <div class="time-box cyan-border">
-      <label>◷ &nbsp; HORAS</label>
-      <div class="input-wrapper"><input id="hours" type="number" min="0" max="99" value="2"><div class="arrows"><button onclick="changeValue('hours',1)">▲</button><button onclick="changeValue('hours',-1)">▼</button></div></div>
+    <!-- Tempo personalizado -->
+    <section class="card">
+      <div class="card-title"><span class="ico">◷</span><h2>Tempo personalizado</h2></div>
+      <div class="custom">
+        <div class="field">
+          <label>HORAS</label>
+          <div class="control">
+            <button onclick="changeValue('hours',-1)">−</button>
+            <input id="hours" type="number" min="0" max="99" value="0">
+            <button onclick="changeValue('hours',1)">+</button>
+          </div>
+        </div>
+        <div class="field featured">
+          <label>MINUTOS</label>
+          <div class="control">
+            <button onclick="changeValue('minutes',-1)">−</button>
+            <input id="minutes" type="number" min="0" max="59" value="30">
+            <button onclick="changeValue('minutes',1)">+</button>
+          </div>
+        </div>
+        <div class="field">
+          <label>SEGUNDOS</label>
+          <div class="control">
+            <button onclick="changeValue('seconds',-1)">−</button>
+            <input id="seconds" type="number" min="0" max="59" value="0">
+            <button onclick="changeValue('seconds',1)">+</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ações -->
+    <button class="btn-primary" onclick="scheduleShutdown()">AGENDAR DESLIGAMENTO</button>
+    <div class="actions">
+      <button class="btn-ghost" onclick="cancelShutdown()">CANCELAR</button>
+      <button class="btn-amber" onclick="shutdownNow()">DESLIGAR AGORA</button>
     </div>
-    <div class="time-box blue-border">
-      <label>◷ &nbsp; MINUTOS</label>
-      <div class="input-wrapper"><input id="minutes" type="number" min="0" max="59" value="0"><div class="arrows"><button onclick="changeValue('minutes',1)">▲</button><button onclick="changeValue('minutes',-1)">▼</button></div></div>
-    </div>
-    <div class="time-box purple-border">
-      <label>◷ &nbsp; SEGUNDOS</label>
-      <div class="input-wrapper"><input id="seconds" type="number" min="0" max="59" value="0"><div class="arrows"><button onclick="changeValue('seconds',1)">▲</button><button onclick="changeValue('seconds',-1)">▼</button></div></div>
-    </div>
-  </div>
-</section>
+    <div class="feedback" id="statusMessage">Defina um tempo e agende</div>
 
-<button class="schedule" onclick="scheduleShutdown()"><span>▶</span>AGENDAR DESLIGAMENTO<b>›</b></button>
-
-<div class="actions">
-  <button class="cancel" onclick="cancelShutdown()">× <span>CANCELAR</span></button>
-  <button class="now" onclick="shutdownNow()">◆ <span>AGORA</span></button>
+    <!-- Atalho desktop -->
+    <section class="card footer-card">
+      <div class="footer-left">
+        <div class="footer-icon">◈</div>
+        <div>
+          <h3>Atalho na Área de Trabalho</h3>
+          <p>1 clique para abrir sem navegador</p>
+        </div>
+      </div>
+      <button class="btn-white" onclick="createShortcut()">CRIAR ATALHO</button>
+    </section>
+  </main>
 </div>
 
-<div class="message"><span></span><b id="statusMessage">Desligamento cancelado</b><span></span></div>
-
-<div class="footer-action">
-  <div class="info-icon">i</div>
-  <span>Criar ícone na Área de Trabalho - 1 clique</span>
-  <button>□+</button>
-</div>
-</main>
-</div>
 <script type="module" src="/src/main.js"></script>
 </body>
 </html>

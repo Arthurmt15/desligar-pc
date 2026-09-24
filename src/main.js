@@ -1,8 +1,8 @@
 /**
- * Desligar PC - Neon Protocol 2 (vanilla JS + API)
- * Style: 100% neon-protocol-2 migrado para index.html + src/input.css (pasta excluida)
+ * Aurora Premium - Desligar PC (vanilla JS + API)
+ * Style 100% refeito: Aurora dark com violet/cyan/amber, glassmorphism
  * Integra backend Express (/api/shutdown, /cancel, /shutdown-now)
- * <300 linhas, comentado
+ * <300 linhas, comentado por secao
  */
 
 // Estado global
@@ -171,8 +171,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (el) el.addEventListener('input', updateCommandPreview);
   });
   updateCommandPreview();
-  // footer botao
-  const footerBtn = document.querySelector('.footer-action button');
+  // footer botao - Aurora usa .footer-card .btn-white, legado .footer-action
+  const footerBtn = document.querySelector('.footer-card .btn-white') || document.querySelector('.footer-action button');
   if (footerBtn) footerBtn.addEventListener('click', createShortcut);
   // restore
   const saved = localStorage.getItem('desligar_endTime');
