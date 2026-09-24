@@ -3,105 +3,97 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Desligar PC — Aurora Premium</title>
+<title>Desligar PC — Lumen</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@500;600;700&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/src/input.css">
 </head>
 <body>
 <div class="bg"></div>
-<div class="app">
+<div class="shell">
   <!-- Header -->
   <header class="header">
     <div class="brand">
-      <div class="logo">⏻</div>
+      <div class="logo">⬢</div>
       <div>
         <h1>DESLIGAR PC</h1>
-        <p>NEON PROTOCOL <span>•</span> v2.5</p>
+        <p>LUMEN <span>•</span> v3.0</p>
       </div>
     </div>
-    <div class="badge" id="statusBadge"><i></i>OCIOSO</div>
+    <div class="status" id="statusBadge"><i></i>OCIOSO</div>
   </header>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="eyebrow">TEMPO RESTANTE — T-MINUS</div>
-    <div class="timer" id="timerDisplay">
-      <span id="hoursDisplay">00</span><em>:</em><span id="minutesDisplay">00</span><em>:</em><span id="secondsDisplay">00</span>
-    </div>
-    <div class="cmd">
-      <span class="cmd-dot"></span>
-      <span id="commandText">shutdown /s /t 7200 /f</span>
-      <button class="cmd-copy" onclick="copyCommand()" aria-label="Copiar">⎘</button>
-    </div>
-    <div class="progress">
-      <div class="progress-head"><span>PROGRESSO</span><strong id="progressPercent">0%</strong></div>
-      <div class="progress-track"><div id="progressBar"></div></div>
-      <div class="progress-foot"><span>0%</span><span id="progressText">PRONTO PARA AGENDAR</span><span>100%</span></div>
-    </div>
-  </section>
+  <div class="grid">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="eyebrow">CONTAGEM REGRESSIVA</div>
+      <div class="timer">
+        <span id="hoursDisplay">00</span><em>:</em><span id="minutesDisplay">00</span><em>:</em><span id="secondsDisplay">00</span>
+      </div>
+      <div class="cmd">
+        <span class="dot"></span>
+        <span id="commandText">shutdown /s /t 7200 /f</span>
+        <button onclick="copyCommand()" aria-label="Copiar">⎘</button>
+      </div>
+      <div class="progress">
+        <div class="progress-head"><span>PROGRESSO</span><strong id="progressPercent">0%</strong></div>
+        <div class="track"><div id="progressBar"></div></div>
+        <div class="progress-foot"><span id="progressText">AGUARDANDO</span></div>
+      </div>
+    </section>
 
-  <!-- Atalhos -->
-  <section class="card">
-    <div class="card-head">
-      <h2><span class="dot"></span> Atalhos</h2>
-      <span>TOQUE PARA PREENCHER</span>
-    </div>
-    <div class="presets">
-      <button class="preset" onclick="setTimer(0,15,0)"><b>15</b> min</button>
-      <button class="preset active" onclick="setTimer(0,30,0)"><b>30</b> min</button>
-      <button class="preset" onclick="setTimer(1,0,0)"><b>1</b> hora</button>
-      <button class="preset" onclick="setTimer(2,0,0)"><b>2</b> horas</button>
-    </div>
-  </section>
-
-  <!-- Custom -->
-  <section class="card">
-    <div class="card-head">
-      <h2><span class="dot pink"></span> Tempo personalizado</h2>
-    </div>
-    <div class="custom">
-      <div class="field">
-        <label>HORAS</label>
-        <div class="stepper">
-          <button onclick="changeValue('hours',-1)">−</button>
-          <input id="hours" type="number" min="0" max="99" value="0">
-          <button onclick="changeValue('hours',1)">+</button>
+    <!-- Controles -->
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Tempo</h2>
+        <span>ESCOLHA RÁPIDA</span>
+      </div>
+      <div class="presets">
+        <button onclick="setTimer(0,15,0)"><strong>15</strong><em>min</em></button>
+        <button class="active" onclick="setTimer(0,30,0)"><strong>30</strong><em>min</em></button>
+        <button onclick="setTimer(1,0,0)"><strong>1</strong><em>hora</em></button>
+        <button onclick="setTimer(2,0,0)"><strong>2</strong><em>horas</em></button>
+      </div>
+      <div class="custom">
+        <div class="field">
+          <label>HORAS</label>
+          <div class="stepper">
+            <button onclick="changeValue('hours',-1)">—</button>
+            <input id="hours" type="number" min="0" max="99" value="0">
+            <button onclick="changeValue('hours',1)">+</button>
+          </div>
+        </div>
+        <div class="field featured">
+          <label>MINUTOS</label>
+          <div class="stepper">
+            <button onclick="changeValue('minutes',-1)">—</button>
+            <input id="minutes" type="number" min="0" max="59" value="30">
+            <button onclick="changeValue('minutes',1)">+</button>
+          </div>
+        </div>
+        <div class="field">
+          <label>SEGUNDOS</label>
+          <div class="stepper">
+            <button onclick="changeValue('seconds',-1)">—</button>
+            <input id="seconds" type="number" min="0" max="59" value="0">
+            <button onclick="changeValue('seconds',1)">+</button>
+          </div>
         </div>
       </div>
-      <div class="field featured">
-        <label>MINUTOS</label>
-        <div class="stepper">
-          <button onclick="changeValue('minutes',-1)">−</button>
-          <input id="minutes" type="number" min="0" max="59" value="30">
-          <button onclick="changeValue('minutes',1)">+</button>
-        </div>
+      <button class="btn-primary" onclick="scheduleShutdown()">AGENDAR DESLIGAMENTO</button>
+      <div class="row">
+        <button class="btn-ghost" onclick="cancelShutdown()">CANCELAR</button>
+        <button class="btn-amber" onclick="shutdownNow()">AGORA</button>
       </div>
-      <div class="field">
-        <label>SEGUNDOS</label>
-        <div class="stepper">
-          <button onclick="changeValue('seconds',-1)">−</button>
-          <input id="seconds" type="number" min="0" max="59" value="0">
-          <button onclick="changeValue('seconds',1)">+</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <button class="btn-primary" onclick="scheduleShutdown()">AGENDAR DESLIGAMENTO</button>
-  <div class="actions">
-    <button class="btn-ghost" onclick="cancelShutdown()">CANCELAR</button>
-    <button class="btn-amber" onclick="shutdownNow()">AGORA</button>
+      <div class="feedback" id="statusMessage">Pronto para agendar</div>
+    </section>
   </div>
-  <div class="feedback" id="statusMessage">Defina um tempo e agende</div>
 
-  <section class="card footer">
-    <div class="footer-left">
-      <div class="footer-icon">◇</div>
-      <div>
-        <h3>Atalho na Área de Trabalho</h3>
-        <p>1 clique para abrir sem navegador</p>
-      </div>
+  <!-- Footer -->
+  <section class="footer">
+    <div>
+      <h3>Área de Trabalho</h3>
+      <p>1 clique • sem navegador</p>
     </div>
     <button class="btn-white" onclick="createShortcut()">CRIAR ATALHO</button>
   </section>
