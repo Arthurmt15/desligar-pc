@@ -1,5 +1,8 @@
-@echo off
-REM NEON PROTOCOL v2.4.1 - Launcher OTIMIZADO (standalone, sem Node/npm)
-REM Style: neon-protocol/desktop/Theme.ps1 | Tokens: neon-protocol/tokens.json
-REM Abre o painel neon instantaneo
-powershell -ExecutionPolicy Bypass -WindowStyle Normal -File "%~dp0DesligarPC.ps1"
+﻿@echo off
+REM Atalho Desligar PC - inicia servidor e abre painel
+cd /d "c:\Users\Martiniano\Documents\desligar-pc"
+echo Iniciando painel Desligar PC...
+start "" http://localhost:3001
+node server/server.js
+pause
+
